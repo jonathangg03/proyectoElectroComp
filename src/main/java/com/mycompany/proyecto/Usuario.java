@@ -9,5 +9,25 @@ package com.mycompany.proyecto;
  * @author dgarcia
  */
 public class Usuario {
+    private String nombreCompleto;
+    private String nombreDeUsuario;
+    private String clave;
     
+    public Usuario(String nombreCompleto, String nombreDeUsuario, String clave) {
+        this.nombreCompleto = nombreCompleto;
+        this.nombreDeUsuario = nombreDeUsuario;
+        this.clave = clave;
+    }
+    
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public String getNombreDeUsuario() {
+        return nombreDeUsuario;
+    }
+    
+    public String getClave() {
+        return clave;
+    }
 }
