@@ -18,7 +18,6 @@ public class Proyecto {
         String usuarioIngresado;
         
         while(true) {
-            System.out.println("B");
             String nombreDeUsuarioAValidar = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
             String claveAValidar = JOptionPane.showInputDialog("Ingrese una contraseña");
             usuarioIngresado = validarUsuario(nombreDeUsuarioAValidar, claveAValidar, usuarioA, usuarioB);
