@@ -13,15 +13,15 @@ import javax.swing.JOptionPane;
 public class Proyecto {
 
     public static void main(String[] args) {
-        Usuario usuarioA = new Usuario("Sebastian Garcia", "sgarcia03", "1234as");
-        Usuario usuarioB = new Usuario("Keneth Gonzalez", "kengo20", "5678df");
+        Usuario usuarioA = new Usuario(1,"Sebastian Garcia", "sgarcia03", "1234as", Rol.ADMINISTRADOR);
+        Usuario usuarioB = new Usuario(2,"Keneth Gonzalez", "kengo20", "5678df", Rol.ADMINISTRADOR);
         String usuarioIngresado;
         
         while(true) {
             String nombreDeUsuarioAValidar = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
             String claveAValidar = JOptionPane.showInputDialog("Ingrese una contraseña");
             usuarioIngresado = validarUsuario(nombreDeUsuarioAValidar, claveAValidar, usuarioA, usuarioB);
-            if (usuarioIngresado != ""){
+            if (usuarioIngresado.equals("")){
                 JOptionPane.showMessageDialog(null, "Usuario correcto");
                 break;
 

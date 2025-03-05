@@ -4,30 +4,90 @@
  */
 package com.mycompany.proyecto;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author dgarcia
  */
 public class Usuario {
+    private static int contadorCodigo = 1;
+    private int codigo;
     private String nombreCompleto;
     private String nombreDeUsuario;
     private String clave;
+    private Estado estado;
+    private Rol rol;
     
-    public Usuario(String nombreCompleto, String nombreDeUsuario, String clave) {
+    public Usuario(int codigo,String nombreCompleto, String nombreDeUsuario, String clave,Rol rol ) {
+        this.codigo = contadorCodigo++;
         this.nombreCompleto = nombreCompleto;
         this.nombreDeUsuario = nombreDeUsuario;
         this.clave = clave;
+        this.estado = Estado.ACTIVO;
+        this.rol = rol;
+    }
+    
+    //Getter / setter
+    public int getCodigo(){
+        return codigo;
     }
     
     public String getNombreCompleto() {
         return nombreCompleto;
     }
+    public void setNombreCompleto(String nombreCompleto){
+        this.nombreCompleto = nombreCompleto;
+    }
 
     public String getNombreDeUsuario() {
         return nombreDeUsuario;
     }
-    
+    public void setNombreUusario(String nombreDeUsuario){
+        this.nombreDeUsuario = nombreDeUsuario;
+    }
     public String getClave() {
         return clave;
     }
+    public void setClave(String clave){
+        this.clave = clave;
+    }
+    public Estado getEstado(){
+        return estado;
+    }
+    public void setEstado(Estado estado){
+        this.estado = estado;
+    }
+    public Rol getRol(){
+        return rol;
+    }
+    public void setRol(Rol rol){
+        this.rol = rol;
+    }
+    
+    // Metodos
+    public void mostrarUsuario(){
+        String claveOculta = "";
+        for (int i = 0; i < clave.length(); i++) {
+            claveOculta += "*";
+            
+        }
+        JOptionPane.showMessageDialog(null,
+                "CODIGO: " + codigo
+                +"\nNOMBRE COMPLETO: " + nombreCompleto
+                +"\nNOMBRE DE USUARIO: " + nombreDeUsuario
+                +"\nCLAVE:" + claveOculta
+                +"\nESTADO: " + Estado.ACTIVO
+                + "\nROL: " + rol);
+    }
+    public void agregarUsuario(String nuevoNombreCompleto, String nuevoNombreDeUsuario, String nuevaClave){
+        this.codigo = contadorCodigo++;
+        this.nombreCompleto = nuevoNombreCompleto;
+        this.nombreDeUsuario = nuevoNombreDeUsuario;
+        this.clave = nuevaClave;
+        this.estado = Estado.ACTIVO;
+        this.rol = Rol.ADMINISTRADOR;
+        System.out.println("Nuevo usuario agregado con éxito.");
+    }
+    
 }
