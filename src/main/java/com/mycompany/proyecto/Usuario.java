@@ -80,6 +80,7 @@ public class Usuario {
                 +"\nESTADO: " + Estado.ACTIVO
                 + "\nROL: " + rol);
     }
+    
     public void agregarUsuario(String nuevoNombreCompleto, String nuevoNombreDeUsuario, String nuevaClave){
         this.codigo = contadorCodigo++;
         this.nombreCompleto = nuevoNombreCompleto;
@@ -90,4 +91,13 @@ public class Usuario {
         System.out.println("Nuevo usuario agregado con éxito.");
     }
     
+    public void mostrarTodosLosDatos() {
+        JOptionPane.showMessageDialog(null,
+                "Nombre completo: " + getNombreCompleto() + "\n"
+                + "Código: " + getCodigo() + "\n"
+                + "Nombre de usuario: " + getNombreDeUsuario() + "\n"
+                + "Clave: " + getClave() + "\n"
+                + "Estado: " + getEstado() + "\n"
+                + "Rol: " + getRol());
+    }
 }
