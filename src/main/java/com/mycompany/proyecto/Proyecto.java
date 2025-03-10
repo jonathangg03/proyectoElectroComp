@@ -15,6 +15,9 @@ public class Proyecto {
     public static void main(String[] args) {
         Usuario usuarioA = new Usuario(1,"Sebastian Garcia", "sgarcia03", "1234as", Rol.ADMINISTRADOR);
         Usuario usuarioB = new Usuario(2,"Keneth Gonzalez", "kengo20", "5678df", Rol.TECNICO);
+        Usuario usuarioC = new Usuario(3,"pendiente", "pendiente", "pendiente", Rol.TECNICO);
+        Usuario usuarioD = new Usuario(4,"pendiente", "pendiente", "pendiente", Rol.TECNICO);
+        
         Orden ordenA = new Orden(1, 1, 1, "celular", "Samsung", "A23", "Pantalla dañada", "asignada");
         Orden ordenB = new Orden(2, 2, 2, "computador", "HP", "124", "Baria no carga", "asignada");
         Usuario usuarioIngresado;
@@ -31,7 +34,7 @@ public class Proyecto {
                 JOptionPane.showMessageDialog(null, "Bienvenido");
                 while(usuarioIngresado.getNombreDeUsuario().length() > 0) {
                     int opcionEscogida = desplegarMenuPrincipal(usuarioIngresado);
-                    ejecutarAccionMenuPrincipal(opcionEscogida, usuarioA, usuarioB, ordenA, ordenB);
+                    ejecutarAccionMenuPrincipal(usuarioIngresado, opcionEscogida, usuarioA, usuarioB, usuarioC, usuarioD ,ordenA, ordenB);
                 }
             }
         }
@@ -75,7 +78,7 @@ public class Proyecto {
         return opcionMenuPrincipal;
     }
     
-    public static void ejecutarAccionMenuPrincipal(int opcionEscogida, Usuario usuarioA, Usuario usuarioB, Orden ordenA, Orden ordenB) {
+    public static void ejecutarAccionMenuPrincipal(Usuario usuarioIngresado, int opcionEscogida, Usuario usuarioA, Usuario usuarioB, Usuario usuarioC, Usuario usuarioD ,Orden ordenA, Orden ordenB) {
         switch(opcionEscogida) {
             case 1:
                 // Mostrar clientes
@@ -84,6 +87,12 @@ public class Proyecto {
                 // Mostrar usuarios
                 usuarioA.mostrarTodosLosDatos();
                 usuarioB.mostrarTodosLosDatos();
+                if (!usuarioC.getNombreDeUsuario().equals("pendiente")) {
+                    usuarioC.mostrarTodosLosDatos();
+                }
+                if (!usuarioD.getNombreDeUsuario().equals("pendiente")) {
+                    usuarioD.mostrarTodosLosDatos();
+                }
                 break;
             case 3:
                 // Mostrar ordenes
@@ -96,12 +105,20 @@ public class Proyecto {
                 break;
             case 5:
                 // Crear usuario
-                agregarUsuario();
+                if(usuarioC.getNombreDeUsuario().equals("pendiente")) {
+                    agregarUsuario(usuarioC);
+                }else {
+                    agregarUsuario(usuarioD);
+                }
                 break;
             case 6:
                 // Agregar orden
                 crearOrden();
                 break;
+            case 11:
+                usuarioIngresado.setNombreUusario("");
+                break;
+                
         }
     }
     
@@ -109,7 +126,7 @@ public class Proyecto {
 //        
 //    }
     
-    public static Usuario agregarUsuario() {
+    public static Usuario agregarUsuario(Usuario usuarioAAgregar) {
         String nombreCompleto = JOptionPane.showInputDialog("Ingrese el nombre completo del usuario");
         String nombreDeUsuario = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
         String clave = JOptionPane.showInputDialog("Ingrese la contraseña");
@@ -127,9 +144,12 @@ public class Proyecto {
             }
         }
         
-        Usuario usuarioNuevo = new Usuario(3, nombreCompleto, nombreDeUsuario, clave, rol);
-        JOptionPane.showMessageDialog(null, "El usuario " + usuarioNuevo.getNombreDeUsuario() + " se agregó correctamente");
-        return usuarioNuevo;
+        usuarioAAgregar.setNombreCompleto(nombreCompleto);
+        usuarioAAgregar.setNombreUusario(nombreDeUsuario);
+        usuarioAAgregar.setClave(clave);
+        usuarioAAgregar.setRol(rol);
+        JOptionPane.showMessageDialog(null, "El usuario " + usuarioAAgregar.getNombreDeUsuario() + " se agregó correctamente");
+        return usuarioAAgregar;
     }
     
      public static Orden crearOrden() {
