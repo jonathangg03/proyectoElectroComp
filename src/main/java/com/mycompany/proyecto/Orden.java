@@ -88,7 +88,7 @@ public class Orden {
     }
     //Metodos
     public void mostrarOrden(){
-        JOptionPane.showMessageDialog(null,
+        System.out.println(
                 "#Orden: " + ordenNum
                 + "\nCliente: " + idCliente
                 + "\nDispositivo: " + dispositivo

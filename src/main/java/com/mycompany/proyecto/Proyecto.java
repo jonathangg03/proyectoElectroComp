@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class Proyecto {
 
     public static void main(String[] args) {
-        Usuario usuarioA = new Usuario(1,"Sebastian Garcia", "sgarcia03", "1234as", Rol.ADMINISTRADOR);
+        Usuario usuarioA = new Usuario(1,"Sebastian Garcia", "sgarcia03", "12as", Rol.ADMINISTRADOR);
         Usuario usuarioB = new Usuario(2,"Keneth Gonzalez", "kengo20", "5678df", Rol.TECNICO);
         Usuario usuarioC = new Usuario(3,"pendiente", "pendiente", "pendiente", Rol.TECNICO);
         Usuario usuarioD = new Usuario(4,"pendiente", "pendiente", "pendiente", Rol.TECNICO);

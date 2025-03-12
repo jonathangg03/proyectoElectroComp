@@ -92,12 +92,21 @@ public class Usuario {
     }
     
     public void mostrarTodosLosDatos() {
-        JOptionPane.showMessageDialog(null,
+        int longitudClave = this.clave.length();
+        String claveAMostrar = "";
+        
+        for(int i = 0; i < longitudClave; i++) {
+            claveAMostrar += "*";
+        }
+        
+        System.out.println(
                 "Nombre completo: " + getNombreCompleto() + "\n"
                 + "Código: " + getCodigo() + "\n"
                 + "Nombre de usuario: " + getNombreDeUsuario() + "\n"
-                + "Clave: " + getClave() + "\n"
+                + "Clave: " + claveAMostrar + "\n"
                 + "Estado: " + getEstado() + "\n"
                 + "Rol: " + getRol());
+       
+        System.out.println(" ");
     }
 }
