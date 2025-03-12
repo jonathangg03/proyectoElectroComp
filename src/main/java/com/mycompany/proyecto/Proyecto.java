@@ -20,6 +20,10 @@ public class Proyecto {
         
         Orden ordenA = new Orden(1, 1, 1, "celular", "Samsung", "A23", "Pantalla dañada", "asignada");
         Orden ordenB = new Orden(2, 2, 2, "computador", "HP", "124", "Baria no carga", "asignada");
+        
+        Cliente clienteA = new Cliente("disponible", "0", 0, 0.0);
+        Cliente clienteB = new Cliente("disponible", "0", 0, 0.0);
+        
         Usuario usuarioIngresado;
         
         while(true) {
@@ -31,10 +35,9 @@ public class Proyecto {
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
             } else {
                 // Usuario correcto
-                JOptionPane.showMessageDialog(null, "Bienvenido");
                 while(usuarioIngresado.getNombreDeUsuario().length() > 0) {
                     int opcionEscogida = desplegarMenuPrincipal(usuarioIngresado);
-                    ejecutarAccionMenuPrincipal(usuarioIngresado, opcionEscogida, usuarioA, usuarioB, usuarioC, usuarioD ,ordenA, ordenB);
+                    ejecutarAccionMenuPrincipal(usuarioIngresado, opcionEscogida, usuarioA, usuarioB, usuarioC, usuarioD ,ordenA, ordenB, clienteA, clienteB);
                 }
             }
         }
@@ -78,10 +81,16 @@ public class Proyecto {
         return opcionMenuPrincipal;
     }
     
-    public static void ejecutarAccionMenuPrincipal(Usuario usuarioIngresado, int opcionEscogida, Usuario usuarioA, Usuario usuarioB, Usuario usuarioC, Usuario usuarioD ,Orden ordenA, Orden ordenB) {
+    public static void ejecutarAccionMenuPrincipal(Usuario usuarioIngresado, int opcionEscogida, Usuario usuarioA, Usuario usuarioB, Usuario usuarioC, Usuario usuarioD ,Orden ordenA, Orden ordenB, Cliente clienteA, Cliente clienteB) {
         switch(opcionEscogida) {
             case 1:
                 // Mostrar clientes
+                if(!clienteA.getDni().equals("0")) {
+                    clienteA.mostrarInformacion();
+                }
+                if(!clienteB.getDni().equals("0")) {
+                    clienteB.mostrarInformacion();
+                }
                 break;
             case 2:
                 // Mostrar usuarios
@@ -101,7 +110,12 @@ public class Proyecto {
                 break;
             case 4:
                 // Crear cliente
-//                agregarCliente();
+                if(clienteA.getDni().equals("0")) {
+                    agregarCliente(clienteA);
+                } else {
+                    agregarCliente(clienteB);
+                }
+                
                 break;
             case 5:
                 // Crear usuario
@@ -163,5 +177,16 @@ public class Proyecto {
         Orden nuevaOrden = new Orden(3, idCliente, codigoTecnico, dispositivo, marca, modelo, problema, "asignada");
         JOptionPane.showMessageDialog(null, "La orden número " + nuevaOrden.getOrdenNum()+ " se agregó correctamente");
         return nuevaOrden;
+     }
+     
+     public static Cliente agregarCliente(Cliente cliente) {
+         cliente.setNombre(JOptionPane.showInputDialog("Ingrese el nombre del cliente"));
+         cliente.setDni(JOptionPane.showInputDialog("Ingrese el DNI del cliente"));
+         cliente.setEdad(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del cliente")));
+         cliente.setSaldo(Double.parseDouble(JOptionPane.showInputDialog("Ingrese el saldo del cliente")));
+         
+         JOptionPane.showMessageDialog(null, "El cliente con el DNI " + cliente.getDni() + " se agrego exitosamente");
+         
+         return cliente;
      }
 }
