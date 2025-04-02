@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.proyecto;
 
 /**
@@ -14,6 +11,8 @@ public class Cliente {
     private String dni;
     private int edad;
     private double saldo;
+    
+    private int numerosOrdenes[];
 
     // Constructor
     public Cliente(String nombre, String dni, int edad, double saldo) {
@@ -21,6 +20,8 @@ public class Cliente {
         this.dni = dni;
         this.edad = edad;
         this.saldo = saldo;
+        
+        this.numerosOrdenes = new int[4];
     }
 
     // Métodos getter y setter para acceder a los atributos encapsulados

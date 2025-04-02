@@ -11,25 +11,32 @@ import javax.swing.JOptionPane;
  * @author dgarcia
  */
 public class Usuario {
-    private static int contadorCodigo = 1;
-    private int codigo;
+    private static int contadorCodigoAdministrador = 201;
+    private static int contadorCodigoTecnico = 101;
+    private String codigo;
     private String nombreCompleto;
     private String nombreDeUsuario;
     private String clave;
     private Estado estado;
     private Rol rol;
     
-    public Usuario(int codigo,String nombreCompleto, String nombreDeUsuario, String clave,Rol rol ) {
-        this.codigo = contadorCodigo++;
+    public Usuario(int codigo,String nombreCompleto, String nombreDeUsuario, String clave, Rol rol ) {
         this.nombreCompleto = nombreCompleto;
         this.nombreDeUsuario = nombreDeUsuario;
         this.clave = clave;
         this.estado = Estado.ACTIVO;
         this.rol = rol;
+                if (this.rol.equals(Rol.ADMINISTRADOR)) {
+            this.codigo = "A-" + contadorCodigoAdministrador;
+            contadorCodigoAdministrador++;
+        } else {
+            this.codigo = "T-" + contadorCodigoTecnico;
+            contadorCodigoTecnico++;
+        }
     }
     
     //Getter / setter
-    public int getCodigo(){
+    public String getCodigo(){
         return codigo;
     }
     
@@ -82,7 +89,6 @@ public class Usuario {
     }
     
     public void agregarUsuario(String nuevoNombreCompleto, String nuevoNombreDeUsuario, String nuevaClave){
-        this.codigo = contadorCodigo++;
         this.nombreCompleto = nuevoNombreCompleto;
         this.nombreDeUsuario = nuevoNombreDeUsuario;
         this.clave = nuevaClave;
