@@ -20,7 +20,7 @@ public class Usuario {
     private Estado estado;
     private Rol rol;
     
-    public Usuario(int codigo,String nombreCompleto, String nombreDeUsuario, String clave, Rol rol ) {
+    public Usuario(String nombreCompleto, String nombreDeUsuario, String clave, Rol rol ) {
         this.nombreCompleto = nombreCompleto;
         this.nombreDeUsuario = nombreDeUsuario;
         this.clave = clave;
