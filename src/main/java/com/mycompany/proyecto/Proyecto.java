@@ -45,6 +45,9 @@ public class Proyecto {
         for (int i = 0; i < usuarios.length; i++) {
             if (usuarios[i] != null) {
                 if (usuarios[i].getNombreDeUsuario().equals(usuarioAValidar) && usuarios[i].getClave().equals(claveAValidar)) {
+                    if(usuarios[i].getEstado()== Estado.INACTIVO){
+                        JOptionPane.showMessageDialog(null, "El usuario esta inactivo");
+                    }
                     return usuarios[i];
                 }
             }
