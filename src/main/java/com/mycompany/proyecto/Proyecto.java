@@ -14,11 +14,11 @@ public class Proyecto {
     public static void main(String[] args) {
         int cantidadUsuarios = 5;
         Usuario usuarios[] = new Usuario[20];
-        usuarios[0] = new Usuario("Jonathan Garcia", "jona03g97", "1rX2EugTmZ", Rol.ADMINISTRADOR);
+        usuarios[0] = new Usuario("Jonathan Garcia", "jona", "12", Rol.ADMINISTRADOR);
         usuarios[1] = new Usuario("Nayeli Reyes", "nayeli23r", "9qWIn9xkwO", Rol.ADMINISTRADOR);
         usuarios[2] = new Usuario("Jose Soto", "scrooge4340", "8DKe6nysAP", Rol.TECNICO);
-        usuarios[3] = new Usuario("Ana Campos", "lather4375", "WGcW8WBfCz", Rol.TECNICO);
-        usuarios[4] = new Usuario("Maria Perez", "cussed8408", "6U0MYcerl6", Rol.TECNICO);
+        usuarios[3] = new Usuario("Ana Campos", "lather4375", "WGfCz", Rol.TECNICO);
+        usuarios[4] = new Usuario("Maria Perez", "cussed8408", "6U0MYcer", Rol.TECNICO);
         
         
         
@@ -43,8 +43,58 @@ public class Proyecto {
                         String claveAValidar = JOptionPane.showInputDialog("Ingrese una contraseña");
                         boolean claveAceptada = validarClave(usuarioEncontrado, claveAValidar);
                         if (claveAceptada == true) { //Constraseña coincide
-                            int opcionEscogida = desplegarMenuPrincipal(usuarioEncontrado);
-                            cantidadUsuarios = ejecutarAccionMenuPrincipal(usuarioEncontrado, opcionEscogida, usuarios, ordenA, ordenB, clienteA, clienteB, cantidadUsuarios);
+                            while (usuarioEncontrado != null) {
+                                int opcionEscogida = desplegarMenuPrincipal(usuarioEncontrado);
+                                // cantidadUsuarios = ejecutarAccionMenuPrincipal(usuarioEncontrado, opcionEscogida, usuarios, ordenA, ordenB, clienteA, clienteB, cantidadUsuarios);
+                                switch (opcionEscogida) {
+                                    case 1:
+                                        // Mostrar clientes
+                                        if (!clienteA.getDni().equals("0")) {
+                                            clienteA.mostrarInformacion();
+                                        }
+                                        if (!clienteB.getDni().equals("0")) {
+                                            clienteB.mostrarInformacion();
+                                        }
+                                        break;
+                                    case 2:
+                                        // Mostrar usuarios
+                                        for (int i = 0; i < usuarios.length; i++) {
+                                            if (usuarios[i] != null) {
+                                                usuarios[i].mostrarTodosLosDatos();
+                                            }
+                                        }
+                                        break;
+                                    case 3:
+                                        // Mostrar ordenes
+                                        ordenA.mostrarOrden();
+                                        ordenB.mostrarOrden();
+                                        break;
+                                    case 4:
+                                        // Crear cliente
+                                        if (clienteA.getDni().equals("0")) {
+                                            agregarCliente(clienteA);
+                                        } else {
+                                            agregarCliente(clienteB);
+                                        }
+
+                                        break;
+                                    case 5:
+                                        // Crear usuario
+                                        int nuevaCantidad = agregarUsuario(usuarios, cantidadUsuarios);
+                                        cantidadUsuarios = nuevaCantidad;
+                                        break;
+                                    case 6:
+                                        // Agregar orden
+                                        crearOrden();
+                                        break;
+                                    case 8:
+                                        buscarUsuario(usuarios);
+                                    case 11:
+                                        usuarioEncontrado = null;
+                                        break;
+                                }
+                            }
+                            break;
                         } else { //Contraseña no coincide
                             intentosClave = intentosClave + 1;
                             System.out.println(intentosClave);
@@ -111,57 +161,10 @@ public class Proyecto {
         return opcionMenuPrincipal;
     }
     
-    public static int ejecutarAccionMenuPrincipal(Usuario usuarioIngresado, int opcionEscogida, Usuario usuarios[] ,Orden ordenA, Orden ordenB, Cliente clienteA, Cliente clienteB, int cantidadUsuarios) {
-        switch(opcionEscogida) {
-            case 1:
-                // Mostrar clientes
-                if(!clienteA.getDni().equals("0")) {
-                    clienteA.mostrarInformacion();
-                }
-                if(!clienteB.getDni().equals("0")) {
-                    clienteB.mostrarInformacion();
-                }
-                break;
-            case 2:
-                // Mostrar usuarios
-                for(int i = 0; i < usuarios.length; i++) {
-                    if(usuarios[i] != null) {
-                        usuarios[i].mostrarTodosLosDatos();
-                    }
-                }
-                break;
-            case 3:
-                // Mostrar ordenes
-                ordenA.mostrarOrden();
-                ordenB.mostrarOrden();
-                break;
-            case 4:
-                // Crear cliente
-                if(clienteA.getDni().equals("0")) {
-                    agregarCliente(clienteA);
-                } else {
-                    agregarCliente(clienteB);
-                }
-                
-                break;
-            case 5:
-                // Crear usuario
-                int nuevaCantidad = agregarUsuario(usuarios, cantidadUsuarios);
-                cantidadUsuarios = nuevaCantidad;
-                break;
-            case 6:
-                // Agregar orden
-                crearOrden();
-                break;
-            case 8:
-                buscarUsuario(usuarios);
-            case 11:
-                usuarioIngresado.setNombreUusario("");
-                break;
-                
-        }
-        return cantidadUsuarios;
-    }
+//    public static int ejecutarAccionMenuPrincipal(Usuario usuarioEncontrado, int opcionEscogida, Usuario usuarios[] ,Orden ordenA, Orden ordenB, Cliente clienteA, Cliente clienteB, int cantidadUsuarios) {
+//
+//        return cantidadUsuarios;
+//    }
     
 //    public static Cliente agregarCliente() {
 //        
