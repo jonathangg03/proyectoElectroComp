@@ -17,7 +17,7 @@ public class Proyecto {
         usuarios[0] = new Usuario("Jonathan Garcia", "jona", "12", Rol.ADMINISTRADOR);
         usuarios[1] = new Usuario("Nayeli Reyes", "nayeli23r", "9qWIn9xkwO", Rol.ADMINISTRADOR);
         usuarios[2] = new Usuario("Jose Soto", "scrooge4340", "8DKe6nysAP", Rol.TECNICO);
-        usuarios[3] = new Usuario("Ana Campos", "lather4375", "WGfCz", Rol.TECNICO);
+        usuarios[3] = new Usuario("Ana Campos", "lather4375", "WGf", Rol.TECNICO);
         usuarios[4] = new Usuario("Maria Perez", "cussed8408", "6U0MYcer", Rol.TECNICO);
         
         
@@ -36,8 +36,9 @@ public class Proyecto {
                 break;
             }
 
-            if (usuarioEncontrado.getEstado().equals(Estado.ACTIVO)) { //Validar si el usuario está activo
-                if (usuarioEncontrado != null) { // Se econtro usuario
+            
+            if (usuarioEncontrado != null) { // Se econtro usuario
+                if (usuarioEncontrado.getEstado().equals(Estado.ACTIVO)) { //Validar si el usuario está activo
                     int intentosClave = 1;
                     while (intentosClave <= 3) {
                         String claveAValidar = JOptionPane.showInputDialog("Ingrese una contraseña");
@@ -89,6 +90,7 @@ public class Proyecto {
                                         break;
                                     case 8:
                                         buscarUsuario(usuarios);
+                                        break;
                                     case 11:
                                         usuarioEncontrado = null;
                                         break;
@@ -105,16 +107,16 @@ public class Proyecto {
                             }
                         }
                     }
-
                 } else {
-                    JOptionPane.showMessageDialog(null, "El usuario no existe");
+                    JOptionPane.showMessageDialog(null, "El usuario no está activo");
                 }
+
             } else {
-                JOptionPane.showMessageDialog(null, "Usuario inactivo");
+                JOptionPane.showMessageDialog(null, "El usuario no existe");
             }
         }
     }
-    
+
     public static Usuario validarNombreUsuario(Usuario usuarios[], String nombreDeUsuarioAValidar) {
         for (int i = 0; i < usuarios.length; i++) {
             if(usuarios[i] != null){
@@ -172,25 +174,117 @@ public class Proyecto {
     
     public static int agregarUsuario(Usuario usuarios[], int cantidadUsuarios) {
         String nombreCompleto = JOptionPane.showInputDialog("Ingrese el nombre completo del usuario");
-        String nombreDeUsuario = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
-        String clave = JOptionPane.showInputDialog("Ingrese la contraseña");
-        Rol rol = Rol.TECNICO;
         
-        
-        String opcionesRol[] = {"Administrador", "Tecnico"};
-        int seleccionRol = JOptionPane.showOptionDialog(null, "Indique el rol del usuario", "Rol: ",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesRol, opcionesRol[1]);
-        
-        if(seleccionRol == 0) {
-            rol = Rol.ADMINISTRADOR;
+        boolean usuarioDisponible = true;
+        boolean correcto = false;
+        String nombreDeUsuario = "";
+        while(usuarioDisponible == true) {
+            nombreDeUsuario = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
+            for(int i = 0; i < usuarios.length; i++) {
+                if(usuarios[i] != null) {
+                    if (usuarios[i].getNombreDeUsuario().equals(nombreDeUsuario)) {
+                        usuarioDisponible = false;
+                    }
+                }
+            }
+            
+            if(usuarioDisponible == false) {
+                JOptionPane.showMessageDialog(null, "Usuario ya agregado en el sistema");
+                String opcionesVolverAgregar[] = {"Agregar otro usuario", "Cancelar"};
+                int volverAgregar = JOptionPane.showOptionDialog(null, "Ingresar usuario nuevamente", "Volver a agregar",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesVolverAgregar, opcionesVolverAgregar[1]);
+                if(volverAgregar == 0) {
+                    usuarioDisponible = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se agrego usuario. Volviendo al menú principal");
+                }
+            } else {
+                usuarioDisponible = false;
+                correcto = true;
+            }
         }
         
-        usuarios[cantidadUsuarios] = new Usuario(nombreCompleto, nombreDeUsuario, clave, rol );
-        JOptionPane.showMessageDialog(null, "El usuario " + nombreDeUsuario + " se agregó correctamente");
-        cantidadUsuarios = cantidadUsuarios + 1;
+        if (correcto == true) {
+            //String clave = JOptionPane.showInputDialog("Ingrese la contraseña");
+            String nuevaClave = "";
+            boolean tieneNumero = false;
+            boolean tieneLetra = false;
+            boolean coinciden = false;
+            boolean cumple = true;
+
+            while (!tieneNumero && !tieneLetra) {
+                nuevaClave = JOptionPane.showInputDialog("Ingrese la nueva contraseña que cumpla las siguientes condiciones: \n"
+                        + "Entre 8 y 16 caracteres \n"
+                        + "Contener al menos un número \n"
+                        + "Contener al menos una letra");
+
+                if (nuevaClave == null) { // Cerrar con la x o Cancelar
+                    break;
+                }
+                for (int i = 0; i < nuevaClave.length(); i++) {
+                    if ((nuevaClave.charAt(i) >= 'A' && nuevaClave.charAt(i) < 'Z') || (nuevaClave.charAt(i) >= 'a' && nuevaClave.charAt(i) < 'z')) {
+                        System.out.println("Tiene letra");
+                        tieneLetra = true;
+                    }
+
+                    if (nuevaClave.charAt(i) >= '0' && nuevaClave.charAt(i) < '9') {
+                        System.out.println("Tiene numero");
+                        tieneNumero = true;
+                    }
+                }
+
+                if (tieneNumero == false || tieneLetra == false) {
+                    JOptionPane.showMessageDialog(null, "La clave no coincide con los parametros");
+                    cumple = false;
+                    String opcionesClave[] = {"Volver a ingresar", "Cancelar"};
+                    int seleccionVolverClave = JOptionPane.showOptionDialog(null, "Indique que desea hacer", "Error contraseña",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesClave, opcionesClave[1]);
+                    if (seleccionVolverClave == 0) {
+                        tieneNumero = false;
+                        tieneLetra = false;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            if (tieneLetra && tieneNumero) {
+                while (coinciden == false) {
+                    String confirmacion = JOptionPane.showInputDialog("Por favor, confirme la contraseña");
+                    if (confirmacion.equals(nuevaClave)) {
+                        coinciden = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Las claves no coinciden");
+                        cumple = false;
+                        String opcionesClave[] = {"Volver a confirmar", "Cancelar"};
+                        int seleccionVolverConfirmacion = JOptionPane.showOptionDialog(null, "Volver a confirmar", "Error contraseña",
+                                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesClave, opcionesClave[1]);
+                        if (seleccionVolverConfirmacion != 0) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (cumple == true) {
+                Rol rol = Rol.TECNICO;
+
+                String opcionesRol[] = {"Administrador", "Tecnico"};
+                int seleccionRol = JOptionPane.showOptionDialog(null, "Indique el rol del usuario", "Rol: ",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesRol, opcionesRol[1]);
+
+                if (seleccionRol == 0) {
+                    rol = Rol.ADMINISTRADOR;
+                }
+
+                usuarios[cantidadUsuarios] = new Usuario(nombreCompleto, nombreDeUsuario, nuevaClave, rol);
+                JOptionPane.showMessageDialog(null, "El usuario " + nombreDeUsuario + " se agregó correctamente");
+                cantidadUsuarios = cantidadUsuarios + 1;
+            }
+        }
         return cantidadUsuarios;
     }
-    
+
      public static Orden crearOrden() {
         int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del cliente"));
         int codigoTecnico = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el código del tecnico"));
@@ -233,7 +327,7 @@ public class Proyecto {
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Busqueda cancelada");
-                    usuarioEncontrado = -2;
+                    usuarioEncontrado = 2;
                     break;
             }
         }
@@ -243,11 +337,11 @@ public class Proyecto {
         usuarioEncontrado = busqueda(usuarios, seleccionBusqueda, usuarioABuscar);
         if (usuarioEncontrado != -1) {
             JOptionPane.showMessageDialog(null,
-                    "Codigo: " + usuarios[usuarioEncontrado].getCodigo()
-                    + "Nombre completo: " + usuarios[usuarioEncontrado].getNombreCompleto()
-                    + "Nombre de usuario: " + usuarios[usuarioEncontrado].getNombreDeUsuario()
-                    + "Clave: " + cifrarClave(usuarios[usuarioEncontrado].getNombreDeUsuario())
-                    + "Estado: " + usuarios[usuarioEncontrado].getEstado()
+                    "Codigo: " + usuarios[usuarioEncontrado].getCodigo() + "\n"
+                    + "Nombre completo: " + usuarios[usuarioEncontrado].getNombreCompleto() + "\n"
+                    + "Nombre de usuario: " + usuarios[usuarioEncontrado].getNombreDeUsuario() + "\n"
+                    + "Clave: " + cifrarClave(usuarios[usuarioEncontrado].getNombreDeUsuario()) + "\n"
+                    + "Estado: " + usuarios[usuarioEncontrado].getEstado() + "\n"
                     + "Rol: " + usuarios[usuarioEncontrado].getRol()
             );
             String opcionesDeCambio[] = {"Actualizar", "Activar-Desactivar", "Cancelar"};
@@ -287,12 +381,12 @@ public class Proyecto {
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesDeCambio, opcionesDeCambio[3]);
         
         switch (seleccionACambiar) {
-            case 1: // Cambiar nombre completo
+            case 0: // Cambiar nombre completo
                 String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre completo");
                 usuarios[usuarioEncontrado].setNombreCompleto(nuevoNombre);
                 JOptionPane.showMessageDialog(null, "Modificó exitosamente el usuario con el codigo " + usuarios[usuarioEncontrado].getCodigo());
                 break;
-            case 2: // Cambiar nombre de usuario
+            case 1: // Cambiar nombre de usuario
                 String nuevoUsuario = JOptionPane.showInputDialog("Ingrese el nuevo nombre de usuario");
                 boolean usuarioExistente = false;
                 while (!usuarioExistente) {
@@ -318,7 +412,7 @@ public class Proyecto {
                     }
                 }
                 break;
-            case 3: // Cambiar contraseña
+            case 2: // Cambiar contraseña
                 String nuevaClave = JOptionPane.showInputDialog("Ingrese la nueva contraseña que cumpla las siguientes condiciones: \n"
                         + "Entre 8 y 16 caracteres \n"
                         + "Contener al menos un número \n"
