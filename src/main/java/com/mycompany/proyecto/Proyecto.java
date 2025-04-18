@@ -12,8 +12,14 @@ import javax.swing.JOptionPane;
  */
 public class Proyecto {
     public static void main(String[] args) {
-        int cantidadUsuarios = 0;
+        int cantidadUsuarios = 5;
         Usuario usuarios[] = new Usuario[20];
+        usuarios[0] = new Usuario("Jonathan Garcia", "jona03g97", "1rX2EugTmZ", Rol.ADMINISTRADOR);
+        usuarios[1] = new Usuario("Nayeli Reyes", "nayeli23r", "9qWIn9xkwO", Rol.ADMINISTRADOR);
+        usuarios[2] = new Usuario("Jose Soto", "scrooge4340", "8DKe6nysAP", Rol.TECNICO);
+        usuarios[3] = new Usuario("Ana Campos", "lather4375", "WGcW8WBfCz", Rol.TECNICO);
+        usuarios[4] = new Usuario("Maria Perez", "cussed8408", "6U0MYcerl6", Rol.TECNICO);
+        
         
         
         Orden ordenA = new Orden(1, 1, 1, "celular", "Samsung", "A23", "Pantalla dañada", "asignada");
@@ -22,37 +28,61 @@ public class Proyecto {
         Cliente clienteA = new Cliente("disponible", "0", 0, 0.0);
         Cliente clienteB = new Cliente("disponible", "0", 0, 0.0);
         
-        Usuario usuarioIngresado;
-        
         while(true) {
             String nombreDeUsuarioAValidar = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
-            String claveAValidar = JOptionPane.showInputDialog("Ingrese una contraseña");
-            usuarioIngresado = validarUsuario(nombreDeUsuarioAValidar, claveAValidar, usuarios);
-            if (usuarioIngresado.getNombreDeUsuario().equals("desconocido")){
-                // Usuario incorrecto
-                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
-            } else {
-                // Usuario correcto
-                while(usuarioIngresado.getNombreDeUsuario().length() > 0) {
-                    int opcionEscogida = desplegarMenuPrincipal(usuarioIngresado);
-                    cantidadUsuarios = ejecutarAccionMenuPrincipal(usuarioIngresado, opcionEscogida, usuarios ,ordenA, ordenB, clienteA, clienteB, cantidadUsuarios);
+            Usuario usuarioEncontrado = validarNombreUsuario(usuarios, nombreDeUsuarioAValidar);
+            
+            if (nombreDeUsuarioAValidar.equals(null)) { // Cerrar con la x o Cancelar
+                break;
+            }
+
+            if (usuarioEncontrado.getEstado().equals(Estado.ACTIVO)) { //Validar si el usuario está activo
+                if (usuarioEncontrado != null) { // Se econtro usuario
+                    int intentosClave = 1;
+                    while (intentosClave <= 3) {
+                        String claveAValidar = JOptionPane.showInputDialog("Ingrese una contraseña");
+                        boolean claveAceptada = validarClave(usuarioEncontrado, claveAValidar);
+                        if (claveAceptada == true) { //Constraseña coincide
+                            int opcionEscogida = desplegarMenuPrincipal(usuarioEncontrado);
+                            cantidadUsuarios = ejecutarAccionMenuPrincipal(usuarioEncontrado, opcionEscogida, usuarios, ordenA, ordenB, clienteA, clienteB, cantidadUsuarios);
+                        } else { //Contraseña no coincide
+                            intentosClave = intentosClave + 1;
+                            System.out.println(intentosClave);
+                            JOptionPane.showMessageDialog(null, "La contraseña es incorrecta");
+                            if (intentosClave > 3) {
+                                usuarioEncontrado.setEstado(Estado.INACTIVO);
+                                JOptionPane.showMessageDialog(null, "El usuario se desactivo por ingresar multiples veces la clave.");
+                            }
+                        }
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El usuario no existe");
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario inactivo");
             }
         }
     }
     
-    public static Usuario validarUsuario(String usuarioAValidar, String claveAValidar, Usuario usuarios[]) {
+    public static Usuario validarNombreUsuario(Usuario usuarios[], String nombreDeUsuarioAValidar) {
         for (int i = 0; i < usuarios.length; i++) {
-            if (usuarios[i] != null) {
-                if (usuarios[i].getNombreDeUsuario().equals(usuarioAValidar) && usuarios[i].getClave().equals(claveAValidar)) {
-                    if(usuarios[i].getEstado()== Estado.INACTIVO){
-                        JOptionPane.showMessageDialog(null, "El usuario esta inactivo");
-                    }
+            if(usuarios[i] != null){
+                if(usuarios[i].getNombreDeUsuario().equals(nombreDeUsuarioAValidar)){
                     return usuarios[i];
                 }
             }
         }
+        
         return null;
+    }
+    
+    public static boolean validarClave(Usuario usuarioEncontrado, String claveAValidar) {
+        if(usuarioEncontrado.getClave().equals(claveAValidar)) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public static int desplegarMenuPrincipal(Usuario usuarioActual){
