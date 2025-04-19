@@ -39,7 +39,7 @@ public class Proyecto {
             String nombreDeUsuarioAValidar = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
             Usuario usuarioEncontrado = validarNombreUsuario(usuarios, nombreDeUsuarioAValidar);
             
-            if (nombreDeUsuarioAValidar.equals(null)) { // Cerrar con la x o Cancelar
+            if (nombreDeUsuarioAValidar == null) { // Cerrar con la x o Cancelar
                 break;
             }
             
@@ -48,62 +48,111 @@ public class Proyecto {
                     int intentosClave = 1;
                     while (intentosClave <= 3) {
                         String claveAValidar = JOptionPane.showInputDialog("Ingrese una contraseña");
+                        if(claveAValidar == null) {
+                            break;
+                        }
                         boolean claveAceptada = validarClave(usuarioEncontrado, claveAValidar);
                         if (claveAceptada == true) { //Constraseña coincide
                             while (usuarioEncontrado != null) {
-                                int opcionEscogida = desplegarMenuPrincipal(usuarioEncontrado);
-                                // cantidadUsuarios = ejecutarAccionMenuPrincipal(usuarioEncontrado, opcionEscogida, usuarios, ordenA, ordenB, clienteA, clienteB, cantidadUsuarios);
-                                switch (opcionEscogida) {
-                                    case 1:
-                                        // Mostrar clientes
-                                        for(int i = 0; i < clientes.length; i++) {
-                                            if(clientes[i] != null){
-                                                clientes[i].mostrarTodosLosDatos();
+                                // int opcionEscogida = desplegarMenuPrincipal(usuarioEncontrado);
+                                String opcionEscogida = "";
+                                if (usuarioEncontrado.getRol() == Rol.ADMINISTRADOR) {
+                                    opcionEscogida = JOptionPane.showInputDialog("Ingrese un número dependiendo de las siguientes opciones: "
+                                            + "\n 1. Mostrar clientes"
+                                            + "\n 2. Mostrar usuarios"
+                                            + "\n 3. Mostrar ordenes de servicio"
+                                            + "\n 4. Agregar nuevo cliente"
+                                            + "\n 5. Agregar nuevo usuarlo"
+                                            + "\n 6. Crear orden de servicio"
+                                            + "\n 7. Buscar cliente"
+                                            + "\n 8. Buscar usuario"
+                                            + "\n 9. Buscar orden de serviclo"
+                                            + "\n 10. Generar reportes"
+                                            + "\n 11. Cerrar sesión"
+                                            + "\n 12. Salir del sistema");
+                                    if (opcionEscogida == null) {
+                                        break;
+                                    }
+                                } else {
+                                    opcionEscogida = JOptionPane.showInputDialog("Ingrese un número dependiendo de las siguientes opciones: "
+                                            + "\n 1. Mostrar ordenes de servicios"
+                                            + "\n 2. Buscar ordenes de servicios"
+                                            + "\n 3. Cerrar sesión"
+                                            + "\n 4. Salir del sistema");
+                                    if (opcionEscogida == null) {
+                                        break;
+                                    }
+                                }
+                                if (usuarioEncontrado.getRol() == Rol.ADMINISTRADOR) {
+                                    switch (opcionEscogida) {
+                                        case "1":
+                                            // Mostrar clientes
+                                            for (int i = 0; i < clientes.length; i++) {
+                                                if (clientes[i] != null) {
+                                                    clientes[i].mostrarTodosLosDatos();
+                                                }
                                             }
-                                        }
-                                        break;
-                                    case 2:
-                                        // Mostrar usuarios
-                                        for (int i = 0; i < usuarios.length; i++) {
-                                            if (usuarios[i] != null) {
-                                                usuarios[i].mostrarTodosLosDatos();
+                                            break;
+                                        case "2":
+                                            // Mostrar usuarios
+                                            for (int i = 0; i < usuarios.length; i++) {
+                                                if (usuarios[i] != null) {
+                                                    usuarios[i].mostrarTodosLosDatos();
+                                                }
                                             }
-                                        }
-                                        break;
-                                    case 3:
-                                        // Mostrar ordenes
-                                        ordenA.mostrarOrden();
-                                        ordenB.mostrarOrden();
-                                        break;
-                                    case 4:
-                                        // Crear cliente
-                                        int nuevaCantidadClientes = agregarCliente(clientes, cantidadClientes);
-                                        cantidadClientes = nuevaCantidadClientes;
-                                        break;
-                                    case 5:
-                                        // Crear usuario
-                                        int nuevaCantidadUsuarios = agregarUsuario(usuarios, cantidadUsuarios);
-                                        cantidadUsuarios = nuevaCantidadUsuarios;
-                                        break;
-                                    case 6:
-                                        // Agregar orden
-                                        crearOrden();
-                                        break;
-                                    case 7:
-                                        buscarCliente(clientes);
-                                        break;
-                                    case 8: // Bucar usuario
-                                        buscarUsuario(usuarios);
-                                        break;
-                                    case 11: // Cerrar sesión
-                                        usuarioEncontrado = null;
-                                        break;
+                                            break;
+                                        case "3":
+                                            // Mostrar ordenes
+                                            ordenA.mostrarOrden();
+                                            ordenB.mostrarOrden();
+                                            break;
+                                        case "4":
+                                            // Crear cliente
+                                            int nuevaCantidadClientes = agregarCliente(clientes, cantidadClientes);
+                                            cantidadClientes = nuevaCantidadClientes;
+                                            break;
+                                        case "5":
+                                            // Crear usuario
+                                            int nuevaCantidadUsuarios = agregarUsuario(usuarios, cantidadUsuarios);
+                                            cantidadUsuarios = nuevaCantidadUsuarios;
+                                            break;
+                                        case "6":
+                                            // Agregar orden
+                                            crearOrden();
+                                            break;
+                                        case "7":
+                                            buscarCliente(clientes);
+                                            break;
+                                        case "8": // Bucar usuario
+                                            buscarUsuario(usuarios);
+                                            break;
+                                        case "11": // Cerrar sesión
+                                            usuarioEncontrado = null;
+                                            break;
+                                        case "12":
+                                            return;
+                                        default:
+                                            JOptionPane.showMessageDialog(null, "Seleccione una opcion valida");
+                                    }
+                                } else{
+                                    switch (opcionEscogida) {
+                                        case "1": //Mostrar ordenes de servicio del tecnico
+                                            break;
+                                        case "2": //Buscar orden de servicio del tecnico
+                                            break;
+                                        case "3": //Cerrar sesión
+                                            usuarioEncontrado = null;
+                                            break;
+                                        case "4": //Salir del sistema
+                                            return;
+                                        default:
+                                            JOptionPane.showMessageDialog(null, "Seleccione una opcion valida");
+                                    }
                                 }
                             }
                             break;
                         } else { //Contraseña no coincide
                             intentosClave = intentosClave + 1;
-                            System.out.println(intentosClave);
                             JOptionPane.showMessageDialog(null, "La contraseña es incorrecta");
                             if (intentosClave > 3) {
                                 usuarioEncontrado.setEstado(Estado.INACTIVO);
@@ -141,41 +190,6 @@ public class Proyecto {
         }
     }
     
-    public static int desplegarMenuPrincipal(Usuario usuarioActual){
-        int opcionMenuPrincipal;
-        if(usuarioActual.getRol() == Rol.ADMINISTRADOR){
-        opcionMenuPrincipal = Integer.parseInt(JOptionPane.showInputDialog("Ingrese un número dependiendo de las siguientes opciones: "
-                    + "\n 1. Mostrar clientes"
-                    + "\n 2. Mostrar usuarios"
-                    + "\n 3. Mostrar ordenes de servicio"
-                    + "\n 4. Agregar nuevo cliente"
-                    + "\n 5. Agregar nuevo usuarlo"
-                    + "\n 6. Crear orden de servicio"
-                    + "\n 7. Buscar cliente"
-                    + "\n 8. Buscar usuario"
-                    + "\n 9. Buscar orden de serviclo"
-                    + "\n 10. Generar reportes"
-                    + "\n 11. Cerrar sesión"));
-        } else {
-            opcionMenuPrincipal = Integer.parseInt(JOptionPane.showInputDialog("Ingrese un número dependiendo de las siguientes opciones: "
-                    + "\n 1. Mostrar clientesMostrar ordenes de servicios"
-                    + "\n 2. Buscar ordenes de servicios"
-                    + "\n 3. Cerrar sesión"
-                    + "\n 4.Salir del sistema"));
-        }
-        
-        return opcionMenuPrincipal;
-    }
-    
-//    public static int ejecutarAccionMenuPrincipal(Usuario usuarioEncontrado, int opcionEscogida, Usuario usuarios[] ,Orden ordenA, Orden ordenB, Cliente clienteA, Cliente clienteB, int cantidadUsuarios) {
-//
-//        return cantidadUsuarios;
-//    }
-    
-//    public static Cliente agregarCliente() {
-//        
-//    }
-    
     public static int agregarUsuario(Usuario usuarios[], int cantidadUsuarios) {
         String nombreCompleto = JOptionPane.showInputDialog("Ingrese el nombre completo del usuario");
         
@@ -209,7 +223,6 @@ public class Proyecto {
         }
         
         if (correcto == true) {
-            //String clave = JOptionPane.showInputDialog("Ingrese la contraseña");
             String nuevaClave = "";
             boolean tieneNumero = false;
             boolean tieneLetra = false;
