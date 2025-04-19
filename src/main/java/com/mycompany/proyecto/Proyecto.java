@@ -532,7 +532,6 @@ public class Proyecto {
     }
 
     public static int agregarCliente(Cliente clientes[], int cantidadClientes) {
-        
         String nuevoID = "";
         while (true) {
             boolean clienteExiste = false;
@@ -545,7 +544,6 @@ public class Proyecto {
                     }
                 }
             }
-            System.out.println(clienteExiste);
             if (clienteExiste == false) { // El ID no existe, es correcto
                 break;
             } else { // El ID ya existe
@@ -559,31 +557,128 @@ public class Proyecto {
             }
         }
 
-        String nombreCompleto = JOptionPane.showInputDialog("Ingrese el nombre completo del cliente");
-        String telefono = JOptionPane.showInputDialog("Ingrese el número de teléfono del cliente en formato 0000-0000");
-        String correo = JOptionPane.showInputDialog("Ingrese el correo electronico del cliente");
-        TipoCliente tipoCliente;
-        String opcionesTipo[] = {"Premium", "Platino", "Oro"};
-        int seleccionRepetir = JOptionPane.showOptionDialog(null, "Seleccione el tipo de cliente", "Tipo de cliente",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesTipo, opcionesTipo[0]);
-        switch (seleccionRepetir) {
-            case 0:
-                tipoCliente = TipoCliente.PREMIUM;
-                break;
-            case 1:
-                tipoCliente = TipoCliente.PLATINO;
-                break;
-            case 2:
-                tipoCliente = TipoCliente.ORO;
-                break;
-            default:
-                tipoCliente = TipoCliente.ORO;
-                JOptionPane.showMessageDialog(null, "No se seleccionó ninguno, por defecto se seleccionará 1");
-                break;
-        }
+        if (nuevoID != null) {
+            String nombreCompleto = JOptionPane.showInputDialog("Ingrese el nombre completo del cliente");
+            String telefono = "";
+            while (true) {
+                telefono = JOptionPane.showInputDialog("Ingrese el número de teléfono del cliente en formato 0000-0000");
+                boolean tamanoCorrecto = true;
+                boolean formatoCorrecto = true;
 
-        clientes[cantidadClientes] = new Cliente(nuevoID, nombreCompleto, telefono, correo, tipoCliente);
-        JOptionPane.showMessageDialog(null, "Usuario con el ID " + nuevoID + " agregado correctamente.");
-        return cantidadClientes + 1;
+                if (telefono != null) {
+                    if (telefono.length() > 9) {
+                        JOptionPane.showMessageDialog(null, "Formato incorrecto: Demasiados digitos");
+                        formatoCorrecto = false;
+                        tamanoCorrecto = false;
+                    }
+
+                    if (telefono.length() <= 0 || telefono.length() < 9) {
+                        JOptionPane.showMessageDialog(null, "Formato incorrecto: Faltan digitos");
+                        formatoCorrecto = false;
+                        tamanoCorrecto = false;
+                    }
+
+                    if (tamanoCorrecto == true) { // Para qie no de error por el tamaño si no se coloca telefono
+                        // Validar que los primeros 4 digitos sean números
+                        for (int i = 0; i < 4; i++) {
+                            if (telefono.charAt(i) < '0' || telefono.charAt(i) > '9') {
+                                formatoCorrecto = false;
+                                JOptionPane.showMessageDialog(null, "Formato incorrecto: Uno de los valores colocados no es numero");
+                            }
+                        }
+
+                        if (telefono.charAt(4) != '-') {
+                            formatoCorrecto = false;
+                            JOptionPane.showMessageDialog(null, "Formato incorrecto: Faltó el guión del medio");
+                        }
+
+                        for (int i = 0; i < 4; i++) {
+                            if (telefono.charAt(i) < '0' || telefono.charAt(i) > '9') {
+                                formatoCorrecto = false;
+                                JOptionPane.showMessageDialog(null, "Formato incorrecto: Uno de los valores colocados no es numero");
+                            }
+                        }
+                    }
+
+                    if (formatoCorrecto == true) {
+                        break;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor");
+                }
+            }
+
+            String correo = "";
+            int posicionArroba = 0;
+            int posicionPunto = 0;
+            boolean formatoCorreoCorrecto;
+            
+            while (true) {
+                correo = JOptionPane.showInputDialog("Ingrese el correo electronico del cliente");
+                formatoCorreoCorrecto = true;
+
+                if (correo != null) {
+                    posicionArroba = correo.indexOf('@');
+                    posicionPunto = correo.indexOf('.', posicionArroba);
+
+                    if (posicionArroba <= 0) {
+                        formatoCorreoCorrecto = false;
+                    }
+
+                    if (posicionPunto == -1) {
+                        formatoCorreoCorrecto = false;
+                    }
+
+                    if (formatoCorreoCorrecto == true) {
+                        break;
+                    } else {
+                        String opcionesRepetir[] = {"Ingresar otro correo", "Cancelar"};
+                        int seleccionRepetir = JOptionPane.showOptionDialog(null, "El correo tiene un formato incorrecto. Desea ingresar oro?", "Error correo",
+                                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesRepetir, opcionesRepetir[1]);
+                        if(seleccionRepetir == 1) {
+                            break;
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un correo");
+                }
+            }
+
+            if (formatoCorreoCorrecto == true) {
+                TipoCliente tipoCliente;
+                String opcionesTipo[] = {"Premium", "Platino", "Oro"};
+                int seleccionRepetir = JOptionPane.showOptionDialog(null, "Seleccione el tipo de cliente", "Tipo de cliente",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesTipo, opcionesTipo[0]);
+                switch (seleccionRepetir) {
+                    case 0:
+                        tipoCliente = TipoCliente.PREMIUM;
+                        break;
+                    case 1:
+                        tipoCliente = TipoCliente.PLATINO;
+                        break;
+                    case 2:
+                        tipoCliente = TipoCliente.ORO;
+                        break;
+                    default:
+                        tipoCliente = TipoCliente.ORO;
+                        JOptionPane.showMessageDialog(null, "No se seleccionó ninguno, por defecto se seleccionará 1");
+                        break;
+                }
+
+                clientes[cantidadClientes] = new Cliente(nuevoID, nombreCompleto, telefono, correo, tipoCliente);
+                JOptionPane.showMessageDialog(null, "Usuario agregado correctamente: \n"
+                        + "ID: " + nuevoID + "\n"
+                        + "Nombre completo: " + nombreCompleto + "\n"
+                        + "Teléfono: " + telefono + "\n"
+                        + "Correo electronico: " + correo + "\n"
+                        + "Tipo de cliente: " + tipoCliente);
+                return cantidadClientes + 1;
+            } else {
+                return cantidadClientes;
+            }
+
+        } else {
+            return cantidadClientes;
+        }
     }
 }
