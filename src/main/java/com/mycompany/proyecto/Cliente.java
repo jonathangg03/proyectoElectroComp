@@ -72,5 +72,13 @@ public class Cliente {
 
         System.out.println(" ");
     }
-
+    
+    public void mostrarTodosLosDatosVentana() {
+        JOptionPane.showMessageDialog(null,
+                "ID: " + getId() + "\n"
+                + "Nombre completo: " + getNombreCompleto() + "\n"
+                + "Telefono: " + getTelefono() + "\n"
+                + "Correo: " + getCorreo() + "\n"
+                + "Tipo cliente: " + getTipoCliente());
+    }
 }

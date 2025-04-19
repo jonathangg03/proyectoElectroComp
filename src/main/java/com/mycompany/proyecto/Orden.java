@@ -95,6 +95,15 @@ public class Orden {
                 + "\nMarca: " + marca
                 + "\nModelo: " + modelo);
     }
+    
+    public void mostrarOrdenVentana() {
+        JOptionPane.showMessageDialog(null,
+                "#Orden: " + ordenNum
+                + "\nCliente: " + idCliente
+                + "\nDispositivo: " + dispositivo
+                + "\nMarca: " + marca
+                + "\nModelo: " + modelo);
+    }
     public void agregarOrden(){
         //agregar
     }

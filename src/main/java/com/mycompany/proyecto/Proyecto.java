@@ -21,7 +21,6 @@ public class Proyecto {
         usuarios[4] = new Usuario("Maria Perez", "cussed8408", "6U0MYcer", Rol.TECNICO);
         
         
-        
         Orden ordenA = new Orden(1, 1, 1, "celular", "Samsung", "A23", "Pantalla dañada", "asignada");
         Orden ordenB = new Orden(2, 2, 2, "computador", "HP", "124", "Baria no carga", "asignada");
         
@@ -43,7 +42,6 @@ public class Proyecto {
             if (nombreDeUsuarioAValidar.equals(null)) { // Cerrar con la x o Cancelar
                 break;
             }
-
             
             if (usuarioEncontrado != null) { // Se econtro usuario
                 if (usuarioEncontrado.getEstado().equals(Estado.ACTIVO)) { //Validar si el usuario está activo
@@ -91,10 +89,13 @@ public class Proyecto {
                                         // Agregar orden
                                         crearOrden();
                                         break;
+                                    case 7:
+                                        buscarCliente(clientes);
+                                        break;
                                     case 8: // Bucar usuario
                                         buscarUsuario(usuarios);
                                         break;
-                                    case 11:
+                                    case 11: // Cerrar sesión
                                         usuarioEncontrado = null;
                                         break;
                                 }
@@ -679,6 +680,37 @@ public class Proyecto {
 
         } else {
             return cantidadClientes;
+        }
+    }
+    
+    public static void buscarCliente(Cliente clientes[]) {
+        boolean clienteEncontrado = false;
+        int indiceClienteEncontrado = -1;
+        String idABuscar;
+        while(true) {
+            idABuscar = JOptionPane.showInputDialog("Ingrese el ID de un cliente para buscar");
+            
+            for(int i = 0; i < clientes.length; i++) {
+                if(clientes[i] != null) {
+                    if(clientes[i].getId().equals(idABuscar)){
+                        clienteEncontrado = true;
+                        indiceClienteEncontrado = i;
+                    }
+                }
+            }
+            
+            if (clienteEncontrado == false) {
+                String opcionesTipo[] = {"Ingresar otro ID", "Cancelar"};
+                int seleccionRepetir = JOptionPane.showOptionDialog(null, "El cliente con el ID:" + idABuscar + " no se encuentra registrado en el sistema", "Cliente no encontrado",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesTipo, opcionesTipo[0]);
+                if(seleccionRepetir == 1){
+                    break;
+                }
+            }else {
+                clientes[indiceClienteEncontrado].mostrarTodosLosDatosVentana();
+                //AQUI IRAN LAS INSTRUCCIONES SI SE ENCUENTRA EL CLIENTE
+                break;
+            }
         }
     }
 }
