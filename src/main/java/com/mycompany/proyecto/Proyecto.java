@@ -25,8 +25,16 @@ public class Proyecto {
         Orden ordenA = new Orden(1, 1, 1, "celular", "Samsung", "A23", "Pantalla dañada", "asignada");
         Orden ordenB = new Orden(2, 2, 2, "computador", "HP", "124", "Baria no carga", "asignada");
         
-        Cliente clienteA = new Cliente("disponible", "0", 0, 0.0);
-        Cliente clienteB = new Cliente("disponible", "0", 0, 0.0);
+        int cantidadClientes = 8;
+        Cliente clientes[] = new Cliente[30];
+        clientes[0] = new Cliente("A1", "Jorge Soto", "1111-1111", "jsoto@mail.com", TipoCliente.PREMIUM);
+        clientes[1] = new Cliente("A2", "Valeria Mendoza", "2222-2222", "vmendoza@mail.com", TipoCliente.PLATINO);
+        clientes[2] = new Cliente("A3", "Andrés Cortés", "3333-2222", "acortes@mail.com", TipoCliente.ORO);
+        clientes[3] = new Cliente("A4", "Camila Ríos", "4444-2222", "crios@mail.com", TipoCliente.PREMIUM);
+        clientes[4] = new Cliente("A5", "Tomás Herrera", "5555-2222", "therrera@mail.com", TipoCliente.PLATINO);
+        clientes[5] = new Cliente("A6", "Natalia Zamora", "6666-2222", "nzamora@mail.com", TipoCliente.ORO);
+        clientes[6] = new Cliente("A7", "Joaquín Salinas", "7777-2222", "jsalinas@mail.com", TipoCliente.PREMIUM);
+        clientes[7] = new Cliente("A8", "Mariana Paredes", "8888-2222", "mparedes@mail.com", TipoCliente.PLATINO);
         
         while(true) {
             String nombreDeUsuarioAValidar = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
@@ -50,11 +58,10 @@ public class Proyecto {
                                 switch (opcionEscogida) {
                                     case 1:
                                         // Mostrar clientes
-                                        if (!clienteA.getDni().equals("0")) {
-                                            clienteA.mostrarInformacion();
-                                        }
-                                        if (!clienteB.getDni().equals("0")) {
-                                            clienteB.mostrarInformacion();
+                                        for(int i = 0; i < clientes.length; i++) {
+                                            if(clientes[i] != null){
+                                                clientes[i].mostrarTodosLosDatos();
+                                            }
                                         }
                                         break;
                                     case 2:
@@ -72,17 +79,13 @@ public class Proyecto {
                                         break;
                                     case 4:
                                         // Crear cliente
-                                        if (clienteA.getDni().equals("0")) {
-                                            agregarCliente(clienteA);
-                                        } else {
-                                            agregarCliente(clienteB);
-                                        }
-
+                                        int nuevaCantidadClientes = agregarCliente(clientes, cantidadClientes);
+                                        cantidadClientes = nuevaCantidadClientes;
                                         break;
                                     case 5:
                                         // Crear usuario
-                                        int nuevaCantidad = agregarUsuario(usuarios, cantidadUsuarios);
-                                        cantidadUsuarios = nuevaCantidad;
+                                        int nuevaCantidadUsuarios = agregarUsuario(usuarios, cantidadUsuarios);
+                                        cantidadUsuarios = nuevaCantidadUsuarios;
                                         break;
                                     case 6:
                                         // Agregar orden
@@ -297,12 +300,7 @@ public class Proyecto {
      }
      
      public static Cliente agregarCliente(Cliente cliente) {
-         cliente.setNombre(JOptionPane.showInputDialog("Ingrese el nombre del cliente"));
-         cliente.setDni(JOptionPane.showInputDialog("Ingrese el DNI del cliente"));
-         cliente.setEdad(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del cliente")));
-         cliente.setSaldo(Double.parseDouble(JOptionPane.showInputDialog("Ingrese el saldo del cliente")));
-         
-         JOptionPane.showMessageDialog(null, "El cliente con el DNI " + cliente.getDni() + " se agrego exitosamente");
+
          
          return cliente;
      }
@@ -532,5 +530,60 @@ public class Proyecto {
                 
         return claveCifrada;
     }
-    
+
+    public static int agregarCliente(Cliente clientes[], int cantidadClientes) {
+        
+        String nuevoID = "";
+        while (true) {
+            boolean clienteExiste = false;
+            nuevoID = JOptionPane.showInputDialog("Ingrese el ID del cliente");
+            for (int i = 0; i < clientes.length; i++) {
+                if (clientes[i] != null) {
+                    if (clientes[i].getId().equals(nuevoID)) {
+                        clienteExiste = true;
+                        break;
+                    }
+                }
+            }
+            System.out.println(clienteExiste);
+            if (clienteExiste == false) { // El ID no existe, es correcto
+                break;
+            } else { // El ID ya existe
+                String opcionesRepetir[] = {"Agregar otro ID", "Cancelar"};
+                int seleccionRepetir = JOptionPane.showOptionDialog(null, "ID ya existe. Desea ingresar oro?", "Error ID",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesRepetir, opcionesRepetir[1]);
+                if (seleccionRepetir == 1) {
+                    JOptionPane.showMessageDialog(null, "Se cancela el nuevo cliente");
+                    return cantidadClientes;
+                }
+            }
+        }
+
+        String nombreCompleto = JOptionPane.showInputDialog("Ingrese el nombre completo del cliente");
+        String telefono = JOptionPane.showInputDialog("Ingrese el número de teléfono del cliente en formato 0000-0000");
+        String correo = JOptionPane.showInputDialog("Ingrese el correo electronico del cliente");
+        TipoCliente tipoCliente;
+        String opcionesTipo[] = {"Premium", "Platino", "Oro"};
+        int seleccionRepetir = JOptionPane.showOptionDialog(null, "Seleccione el tipo de cliente", "Tipo de cliente",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesTipo, opcionesTipo[0]);
+        switch (seleccionRepetir) {
+            case 0:
+                tipoCliente = TipoCliente.PREMIUM;
+                break;
+            case 1:
+                tipoCliente = TipoCliente.PLATINO;
+                break;
+            case 2:
+                tipoCliente = TipoCliente.ORO;
+                break;
+            default:
+                tipoCliente = TipoCliente.ORO;
+                JOptionPane.showMessageDialog(null, "No se seleccionó ninguno, por defecto se seleccionará 1");
+                break;
+        }
+
+        clientes[cantidadClientes] = new Cliente(nuevoID, nombreCompleto, telefono, correo, tipoCliente);
+        JOptionPane.showMessageDialog(null, "Usuario con el ID " + nuevoID + " agregado correctamente.");
+        return cantidadClientes + 1;
+    }
 }

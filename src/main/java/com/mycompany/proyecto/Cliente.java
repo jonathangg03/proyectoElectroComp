@@ -1,89 +1,76 @@
 
 package com.mycompany.proyecto;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author MegaByte
  */
 public class Cliente {
-     // Atributos encapsulados
-    private String nombre;
-    private String dni;
-    private int edad;
-    private double saldo;
+    String id;
+    String nombreCompleto;
+    String telefono;
+    String correo;
+    TipoCliente tipoCliente;
+
+    public Cliente(String id, String nombreCompleto, String telefono, String correo, TipoCliente tipoCliente) {
+        this.id = id;
+        this.nombreCompleto = nombreCompleto;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.tipoCliente = tipoCliente;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
     
-    private int numerosOrdenes[];
+    public void mostrarTodosLosDatos() {
+        System.out.println(
+                "ID: " + getId()+ "\n"
+                + "Nombre completo: " + getNombreCompleto() + "\n"
+                + "Telefono: " + getTelefono()+ "\n"
+                + "Correo: " + getCorreo() + "\n"
+                + "Tipo cliente: " + getTipoCliente());
 
-    // Constructor
-    public Cliente(String nombre, String dni, int edad, double saldo) {
-        this.nombre = nombre;
-        this.dni = dni;
-        this.edad = edad;
-        this.saldo = saldo;
-        
-        this.numerosOrdenes = new int[4];
+        System.out.println(" ");
     }
 
-    // Métodos getter y setter para acceder a los atributos encapsulados
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
-
-    // Métodos de la clase
-
-    public void mostrarInformacion() {
-        System.out.println("Nombre: " + nombre);
-        System.out.println("DNI: " + dni);
-        System.out.println("Edad: " + edad);
-        System.out.println("Saldo: " + saldo);
-    }
-
-    public void depositar(double cantidad) {
-        if (cantidad > 0) {
-            saldo += cantidad;
-            System.out.println("Se ha depositado " + cantidad + ". Saldo actual: " + saldo);
-        } else {
-            System.out.println("La cantidad a depositar debe ser mayor que 0.");
-        }
-    }
-
-    public void retirar(double cantidad) {
-        if (cantidad > 0 && cantidad <= saldo) {
-            saldo -= cantidad;
-            System.out.println("Se ha retirado " + cantidad + ". Saldo restante: " + saldo);
-        } else if (cantidad > saldo) {
-            System.out.println("No tienes suficiente saldo para realizar este retiro.");
-        } else {
-            System.out.println("La cantidad a retirar debe ser mayor que 0.");
-        }
-    }
 }
