@@ -1,19 +1,29 @@
 package com.mycompany.proyecto;
 
-import javax.swing.JOptionPane;
+import java.time.LocalDate;
 
 public class Orden {
+
+    private static int contadorOrdenNum = 3000;
+
     private int ordenNum;
-    private int idCliente;
-    private int codTecnico;
-    private String dispositivo;
+    private String idCliente;
+    private String codTecnico;
+    private TipoDispositivo dispositivo;
     private String marca;
     private String modelo;
     private String problema;
-    private String estado;
-    
-    public Orden(int ordenNum, int idCliente, int codTecnico, String dispositivo, String marca, String modelo, String problema, String estado){
-        this.ordenNum = ordenNum;
+    private EstadoOrden estado;
+    private String fechaIngreso;
+    private String solucion;
+    private double costo;
+    private double precio;
+
+    //Constructor 
+    public Orden(String idCliente, String codTecnico, TipoDispositivo dispositivo, String marca, String modelo, String problema, EstadoOrden estado) {
+        this.ordenNum = contadorOrdenNum;
+        contadorOrdenNum++;
+
         this.idCliente = idCliente;
         this.codTecnico = codTecnico;
         this.dispositivo = dispositivo;
@@ -21,90 +31,131 @@ public class Orden {
         this.modelo = modelo;
         this.problema = problema;
         this.estado = estado;
+        this.fechaIngreso = LocalDate.now().toString();
     }
-    //get
+
+    //getter and setter
+    public int getContadorOrdenNum() {
+        return contadorOrdenNum;
+    }
+
+    public void setContadorOrdenNum(int contadorOrdenNum) {
+        this.contadorOrdenNum = contadorOrdenNum;
+    }
+
     public int getOrdenNum() {
         return ordenNum;
     }
 
-    public int getIdCliente() {
+    public void setOrdenNum(int ordenNum) {
+        this.ordenNum = ordenNum;
+    }
+
+    public String getIdCliente() {
         return idCliente;
     }
 
-    public int getCodTecnico() {
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getCodTecnico() {
         return codTecnico;
     }
 
-    public String getDispositivo() {
+    public void setCodTecnico(String codTecnico) {
+        this.codTecnico = codTecnico;
+    }
+
+    public TipoDispositivo getDispositivo() {
         return dispositivo;
+    }
+
+    public void setDispositivo(TipoDispositivo dispositivo) {
+        this.dispositivo = dispositivo;
     }
 
     public String getMarca() {
         return marca;
     }
 
-    public String getModelo() {
-        return modelo;
-    }
-
-    public String getProblema() {
-        return problema;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-    //set
-    public void setOrdenNum(int ordenNum) {
-        this.ordenNum = ordenNum;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public void setCodTecnico(int codTecnico) {
-        this.codTecnico = codTecnico;
-    }
-
-    public void setDispositivo(String dispositivo) {
-        this.dispositivo = dispositivo;
-    }
-
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
     }
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
+    public String getProblema() {
+        return problema;
+    }
+
     public void setProblema(String problema) {
         this.problema = problema;
     }
 
-    public void setEstado(String estado) {
+    public EstadoOrden getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoOrden estado) {
         this.estado = estado;
     }
+
+    public String getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(String fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public String getSolucion() {
+        return solucion;
+    }
+
+    public void setSolucion(String solucion) {
+        this.solucion = solucion;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
     //Metodos
-    public void mostrarOrden(){
-        System.out.println(
-                "#Orden: " + ordenNum
-                + "\nCliente: " + idCliente
-                + "\nDispositivo: " + dispositivo
-                + "\nMarca: " + marca
-                + "\nModelo: " + modelo);
+    public void mostrarDatosOrden() {
+        System.out.println("Número de orden: " + ordenNum);
+        System.out.println("ID Cliente: " + idCliente);
+        System.out.println("Código Técnico: " + codTecnico);
+        System.out.println("Tipo de dispositivo: " + dispositivo);
+        System.out.println("Marca: " + marca);
+        System.out.println("Modelo: " + modelo);
+        System.out.println("Problema: " + problema);
+        System.out.println("Estado: " + estado);
+        System.out.println("Fecha de ingreso: " + fechaIngreso);
+        if (estado == EstadoOrden.Reparada || estado == EstadoOrden.Devolucion) {
+            System.out.println("Solución: " + solucion);
+            System.out.println("Costo: ₡" + costo);
+            System.out.println("Precio final: ₡" + precio);
     }
-    
-    public void mostrarOrdenVentana() {
-        JOptionPane.showMessageDialog(null,
-                "#Orden: " + ordenNum
-                + "\nCliente: " + idCliente
-                + "\nDispositivo: " + dispositivo
-                + "\nMarca: " + marca
-                + "\nModelo: " + modelo);
+
     }
-    public void agregarOrden(){
-        //agregar
-    }
+
 }

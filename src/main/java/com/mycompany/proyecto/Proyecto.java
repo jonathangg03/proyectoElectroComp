@@ -1,7 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-
 package com.mycompany.proyecto;
 
 import javax.swing.JOptionPane;
@@ -11,6 +10,7 @@ import javax.swing.JOptionPane;
  * @author MegaByte
  */
 public class Proyecto {
+
     public static void main(String[] args) {
         int cantidadUsuarios = 5;
         Usuario usuarios[] = new Usuario[20];
@@ -19,11 +19,25 @@ public class Proyecto {
         usuarios[2] = new Usuario("Jose Soto", "scrooge4340", "8DKe6nysAP", Rol.TECNICO);
         usuarios[3] = new Usuario("Ana Campos", "lather4375", "WGf", Rol.TECNICO);
         usuarios[4] = new Usuario("Maria Perez", "cussed8408", "6U0MYcer", Rol.TECNICO);
-        
-        
-        Orden ordenA = new Orden(1, 1, 1, "celular", "Samsung", "A23", "Pantalla dañada", "asignada");
-        Orden ordenB = new Orden(2, 2, 2, "computador", "HP", "124", "Baria no carga", "asignada");
-        
+
+        int cantidadOrdenes = 15;
+        Orden ordenes[] = new Orden[120];
+        ordenes[0] = new Orden("1-6655-0808", "T-101", TipoDispositivo.Celular, "Samsung", "A23", "Pantalla dañada", EstadoOrden.Asignada);
+        ordenes[1] = new Orden("1-7788-0909", "T-102", TipoDispositivo.PC, "HP", "124", "Bateria dañada", EstadoOrden.Asignada);
+        ordenes[2] = new Orden("1-7788-0909", "T-103", TipoDispositivo.Laptop, "Dell", "224", "Puerto de carga dañado", EstadoOrden.Asignada);
+        ordenes[3] = new Orden("1-7788-0909", "T-104", TipoDispositivo.Tablet, "Lenovo", "124", "Pantalla dañada", EstadoOrden.Asignada);
+        ordenes[4] = new Orden("1-7788-0909", "T-105", TipoDispositivo.Celular, "Samsumg", "A26", "Fallas en la camara", EstadoOrden.Devolucion);
+        ordenes[5] = new Orden("1-7788-0909", "T-106", TipoDispositivo.PC, "HP", "125", "Sobrecalentamiento", EstadoOrden.Devolucion);
+        ordenes[6] = new Orden("1-7788-0909", "T-107", TipoDispositivo.Laptop, "Dell", "225", "Fallas en el microfono", EstadoOrden.Devolucion);
+        ordenes[7] = new Orden("1-7788-0909", "T-108", TipoDispositivo.Tablet, "Lenovo", "124", "", EstadoOrden.Devolucion);
+        ordenes[8] = new Orden("1-7788-0909", "T-109", TipoDispositivo.Celular, "Samsumg", "A36", "Sobrecalentamiento", EstadoOrden.EnReparacion);
+        ordenes[9] = new Orden("1-7788-0909", "T-110", TipoDispositivo.PC, "HP", "126", "Puerto de carga dañado", EstadoOrden.EnReparacion);
+        ordenes[10] = new Orden("1-7788-0909", "T-111", TipoDispositivo.Laptop, "Dell", "226", "Pantalla dañada", EstadoOrden.EnReparacion);
+        ordenes[11] = new Orden("1-7788-0909", "T-112", TipoDispositivo.Tablet, "Lenovo", "124", "Fallas en la camara", EstadoOrden.Reparada);
+        ordenes[12] = new Orden("1-7788-0909", "T-113", TipoDispositivo.Celular, "Samsung", "S25", "Microfono dañado", EstadoOrden.Reparada);
+        ordenes[13] = new Orden("1-7788-0909", "T-114", TipoDispositivo.PC, "HP", "125", "Fallos en la camara", EstadoOrden.Reparada);
+        ordenes[14] = new Orden("1-7788-0909", "T-115", TipoDispositivo.Laptop, "Dell", "227", "Bateria dañada", EstadoOrden.Reparada);
+
         int cantidadClientes = 8;
         Cliente clientes[] = new Cliente[30];
         clientes[0] = new Cliente("A1", "Jorge Soto", "1111-1111", "jsoto@mail.com", TipoCliente.PREMIUM);
@@ -34,21 +48,21 @@ public class Proyecto {
         clientes[5] = new Cliente("A6", "Natalia Zamora", "6666-2222", "nzamora@mail.com", TipoCliente.ORO);
         clientes[6] = new Cliente("A7", "Joaquín Salinas", "7777-2222", "jsalinas@mail.com", TipoCliente.PREMIUM);
         clientes[7] = new Cliente("A8", "Mariana Paredes", "8888-2222", "mparedes@mail.com", TipoCliente.PLATINO);
-        
-        while(true) {
+
+        while (true) {
             String nombreDeUsuarioAValidar = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
             Usuario usuarioEncontrado = validarNombreUsuario(usuarios, nombreDeUsuarioAValidar);
-            
+
             if (nombreDeUsuarioAValidar == null) { // Cerrar con la x o Cancelar
                 break;
             }
-            
+
             if (usuarioEncontrado != null) { // Se econtro usuario
                 if (usuarioEncontrado.getEstado().equals(Estado.ACTIVO)) { //Validar si el usuario está activo
                     int intentosClave = 1;
                     while (intentosClave <= 3) {
                         String claveAValidar = JOptionPane.showInputDialog("Ingrese una contraseña");
-                        if(claveAValidar == null) {
+                        if (claveAValidar == null) {
                             break;
                         }
                         boolean claveAceptada = validarClave(usuarioEncontrado, claveAValidar);
@@ -103,8 +117,7 @@ public class Proyecto {
                                             break;
                                         case "3":
                                             // Mostrar ordenes
-                                            ordenA.mostrarOrden();
-                                            ordenB.mostrarOrden();
+                                            mostrarOrdenesDeServicios(ordenes, cantidadOrdenes, usuarios, clientes);
                                             break;
                                         case "4":
                                             // Crear cliente
@@ -118,7 +131,11 @@ public class Proyecto {
                                             break;
                                         case "6":
                                             // Agregar orden
-                                            crearOrden();
+                                            Orden nuevaOrden = crearOrden(clientes, usuarios, ordenes, cantidadOrdenes);
+                                            if (nuevaOrden != null) {
+                                                ordenes[cantidadOrdenes] = nuevaOrden;
+                                                cantidadOrdenes++;
+                                            }
                                             break;
                                         case "7":
                                             buscarCliente(clientes);
@@ -126,24 +143,32 @@ public class Proyecto {
                                         case "8": // Bucar usuario
                                             buscarUsuario(usuarios);
                                             break;
+                                        case "9": //buscar ordenes de servicios 
+                                            buscarOrdenDeServicio(ordenes, cantidadOrdenes);
+                                            break;
                                         case "11": // Cerrar sesión
                                             usuarioEncontrado = null;
                                             break;
                                         case "12":
+                                            System.out.println("Gracias por usar este sistema.");
                                             return;
                                         default:
                                             JOptionPane.showMessageDialog(null, "Seleccione una opcion valida");
                                     }
-                                } else{
+                                } else {
+                                    String codTecnico = usuarioEncontrado.getCodigo();
                                     switch (opcionEscogida) {
                                         case "1": //Mostrar ordenes de servicio del tecnico
+                                            mostrarOrdenesDeTecnico(ordenes, cantidadOrdenes, codTecnico, usuarios, clientes);
                                             break;
                                         case "2": //Buscar orden de servicio del tecnico
+                                            buscarOrdenTecnico(ordenes, cantidadOrdenes, codTecnico, clientes, cantidadClientes);
                                             break;
                                         case "3": //Cerrar sesión
                                             usuarioEncontrado = null;
                                             break;
                                         case "4": //Salir del sistema
+                                            
                                             return;
                                         default:
                                             JOptionPane.showMessageDialog(null, "Seleccione una opcion valida");
@@ -172,46 +197,46 @@ public class Proyecto {
 
     public static Usuario validarNombreUsuario(Usuario usuarios[], String nombreDeUsuarioAValidar) {
         for (int i = 0; i < usuarios.length; i++) {
-            if(usuarios[i] != null){
-                if(usuarios[i].getNombreDeUsuario().equals(nombreDeUsuarioAValidar)){
+            if (usuarios[i] != null) {
+                if (usuarios[i].getNombreDeUsuario().equals(nombreDeUsuarioAValidar)) {
                     return usuarios[i];
                 }
             }
         }
-        
+
         return null;
     }
-    
+
     public static boolean validarClave(Usuario usuarioEncontrado, String claveAValidar) {
-        if(usuarioEncontrado.getClave().equals(claveAValidar)) {
+        if (usuarioEncontrado.getClave().equals(claveAValidar)) {
             return true;
         } else {
             return false;
         }
     }
-    
+
     public static int agregarUsuario(Usuario usuarios[], int cantidadUsuarios) {
         String nombreCompleto = JOptionPane.showInputDialog("Ingrese el nombre completo del usuario");
-        
+
         boolean usuarioDisponible = true;
         boolean correcto = false;
         String nombreDeUsuario = "";
-        while(usuarioDisponible == true) {
+        while (usuarioDisponible == true) {
             nombreDeUsuario = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
-            for(int i = 0; i < usuarios.length; i++) {
-                if(usuarios[i] != null) {
+            for (int i = 0; i < usuarios.length; i++) {
+                if (usuarios[i] != null) {
                     if (usuarios[i].getNombreDeUsuario().equals(nombreDeUsuario)) {
                         usuarioDisponible = false;
                     }
                 }
             }
-            
-            if(usuarioDisponible == false) {
+
+            if (usuarioDisponible == false) {
                 JOptionPane.showMessageDialog(null, "Usuario ya agregado en el sistema");
                 String opcionesVolverAgregar[] = {"Agregar otro usuario", "Cancelar"};
                 int volverAgregar = JOptionPane.showOptionDialog(null, "Ingresar usuario nuevamente", "Volver a agregar",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesVolverAgregar, opcionesVolverAgregar[1]);
-                if(volverAgregar == 0) {
+                if (volverAgregar == 0) {
                     usuarioDisponible = true;
                 } else {
                     JOptionPane.showMessageDialog(null, "No se agrego usuario. Volviendo al menú principal");
@@ -221,7 +246,7 @@ public class Proyecto {
                 correcto = true;
             }
         }
-        
+
         if (correcto == true) {
             String nuevaClave = "";
             boolean tieneNumero = false;
@@ -300,24 +325,434 @@ public class Proyecto {
         return cantidadUsuarios;
     }
 
-     public static Orden crearOrden() {
-        int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del cliente"));
-        int codigoTecnico = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el código del tecnico"));
-        String dispositivo = JOptionPane.showInputDialog("Ingrese el dispositivo a atender");
-        String marca = JOptionPane.showInputDialog("Ingrese la marca del dispositivo");
-        String modelo = JOptionPane.showInputDialog("Ingrese el modelo del dispositivo");
-        String problema = JOptionPane.showInputDialog("Ingrese el problema que tiene el dispositivo");
-        
-        Orden nuevaOrden = new Orden(3, idCliente, codigoTecnico, dispositivo, marca, modelo, problema, "asignada");
-        JOptionPane.showMessageDialog(null, "La orden número " + nuevaOrden.getOrdenNum()+ " se agregó correctamente");
-        return nuevaOrden;
-     }
-     
-     public static Cliente agregarCliente(Cliente cliente) {
+    public static Orden crearOrden(Cliente clientes[], Usuario usuarios[], Orden ordenes[], int cantidadOrdenes) {
+        String idCliente = "";
+        Cliente clienteEncontrado = null;
+        boolean clienteValido = false;
 
-         
-         return cliente;
-     }
+        while (!clienteValido) {
+            idCliente = JOptionPane.showInputDialog("Ingrese el ID del cliente:");
+
+            for (int i = 0; i < clientes.length; i++) {
+                if (clientes[i] != null && clientes[i].getId().equals(idCliente)) {
+                    clienteEncontrado = clientes[i];
+                    clienteValido = true;
+                    break;
+                }
+            }
+
+            if (!clienteValido) {
+                String opciones[] = {"Ingresar otro ID", "Cancelar"};
+                int opcion = JOptionPane.showOptionDialog(null,
+                        "Cliente no encontrado",
+                        "No encontrado",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        opciones,
+                        opciones[0]);
+                if (opcion == 1) {
+                    return null;
+                }
+            }
+        }
+
+        // Validar que el cliente no tenga más de 4 órdenes
+        int ordenesCliente = 0;
+        for (int i = 0; i < cantidadOrdenes; i++) {
+            if (ordenes[i] != null && ordenes[i].getIdCliente().equals(idCliente)) {
+                ordenesCliente++;
+            }
+        }
+
+        if (ordenesCliente >= 4) {
+            String opciones[] = {"Ingresar otro ID", "Cancelar"};
+            int opcion = JOptionPane.showOptionDialog(null,
+                    "El cliente ya tiene 4 órdenes",
+                    "Límite alcanzado",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opciones,
+                    opciones[0]);
+            if (opcion == 1) {
+                return null;
+            }
+            return crearOrden(clientes, usuarios, ordenes, cantidadOrdenes); // intentar con otro
+        }
+
+        // Validar código de técnico
+        String codTecnico = "";
+        boolean tecnicoValido = false;
+
+        while (!tecnicoValido) {
+            codTecnico = JOptionPane.showInputDialog("Ingrese el código del técnico:");
+
+            for (int i = 0; i < usuarios.length; i++) {
+                if (usuarios[i] != null && usuarios[i].getCodigo().equals(codTecnico) && usuarios[i].getRol() == Rol.TECNICO) {
+                    tecnicoValido = true;
+                    break;
+                }
+            }
+
+            if (!tecnicoValido) {
+                String opciones[] = {"Ingresar otro código", "Cancelar"};
+                int opcion = JOptionPane.showOptionDialog(null,
+                        "Código no válido o no es técnico",
+                        "Invalido",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        opciones,
+                        opciones[0]);
+                if (opcion == 1) {
+                    return null;
+                }
+            }
+        }
+        //Datos restantes para crear la orden
+        String marca = JOptionPane.showInputDialog("Ingrese la marca del dispositivo:");
+        String modelo = JOptionPane.showInputDialog("Ingrese el modelo del dispositivo:");
+        String problema = JOptionPane.showInputDialog("Describa el problema del dispositivo:");
+
+        // Selección del tipo de dispositivo
+        String opcionesDispositivos[] = {"Laptop", "PC", "Celular", "Tablet"};
+        int opcionDispositivo = JOptionPane.showOptionDialog(null,
+                "Seleccione el tipo de dispositivo",
+                "Dispositivo",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opcionesDispositivos,
+                opcionesDispositivos[0]);
+
+        TipoDispositivo dispositivo = TipoDispositivo.Laptop;
+        switch (opcionDispositivo) {
+            case 0:
+                dispositivo = TipoDispositivo.Laptop;
+                break;
+            case 1:
+                dispositivo = TipoDispositivo.PC;
+                break;
+            case 2:
+                dispositivo = TipoDispositivo.Celular;
+                break;
+            case 3:
+                dispositivo = TipoDispositivo.Tablet;
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "No se seleccionó tipo de dispositivo");
+                return null;
+        }
+
+        // Crear y retornar la orden
+        Orden nuevaOrden = new Orden(idCliente, codTecnico, dispositivo, marca, modelo, problema, EstadoOrden.Asignada);
+        JOptionPane.showMessageDialog(null, "Orden creada exitosamente:\nNúmero: " + nuevaOrden.getOrdenNum()
+                + "\nCliente: " + idCliente
+                + "\nTécnico: " + codTecnico
+                + "\nDispositivo: " + dispositivo
+                + "\nMarca: " + marca
+                + "\nModelo: " + modelo
+                + "\nProblema: " + problema
+                + "\nEstado:" + EstadoOrden.Asignada);
+
+        return nuevaOrden;
+
+    }
+
+    public static void mostrarOrdenesDeServicios(Orden ordenes[], int cantidadOrdenes, Usuario usuarios[], Cliente clientes[]) {
+        if (cantidadOrdenes == 0) {
+            System.out.println("No hay órdenes registradas.");
+        } else {
+            System.out.println("Ordenes de servicio");
+
+            for (int i = 0; i < cantidadOrdenes; i++) {
+                if (ordenes[i] != null) {
+                    String codTecnico = ordenes[i].getCodTecnico();
+                    String idCliente = ordenes[i].getIdCliente();
+
+                    String nombreTecnico = "Desconocido";
+                    String nombreCliente = "Desconocido";
+
+                    // Buscar nombre del técnico
+                    for (int j = 0; j < usuarios.length; j++) {
+                        if (usuarios[j] != null && usuarios[j].getCodigo().equals(codTecnico)) {
+                            nombreTecnico = usuarios[j].getNombreCompleto();
+                            break;
+                        }
+                    }
+
+                    // Buscar nombre del cliente
+                    for (int j = 0; j < clientes.length; j++) {
+                        if (clientes[j] != null && clientes[j].getId().equals(idCliente)) {
+                            nombreCliente = clientes[j].getNombreCompleto();
+                            break;
+                        }
+                    }
+
+                    // Mostrar la información
+                    System.out.println();
+                    System.out.println("Número de orden: " + ordenes[i].getOrdenNum());
+                    System.out.println("Cliente: " + nombreCliente);
+                    System.out.println("ID de cliente: " + idCliente);
+                    System.out.println("Técnico asignado: " + nombreTecnico);
+                    System.out.println("Codigo de tecnico: " + codTecnico);
+                    System.out.println("Dispositivo: " + ordenes[i].getDispositivo());
+                    System.out.println("Marca: " + ordenes[i].getMarca());
+                    System.out.println("Modelo: " + ordenes[i].getModelo());
+                    System.out.println("Problema: " + ordenes[i].getProblema());
+                    System.out.println("Estado: " + ordenes[i].getEstado());
+                    System.out.println("Fecha de ingreso: " + ordenes[i].getFechaIngreso());
+                    System.out.println();
+                }
+            }
+        }
+    }
+
+    public static void buscarOrdenDeServicio(Orden ordenes[], int cantidadOrdenes) {
+        boolean buscarOrden = true;
+
+        while (buscarOrden) {
+            String numIngresado = JOptionPane.showInputDialog("Ingrese el número de orden de servicio:");
+
+            int indiceEncontrado = -1;
+            //Buscar la orden comparando con el numero de orden
+            for (int i = 0; i < cantidadOrdenes; i++) {
+                if (ordenes[i] != null) {
+                    String numOrden = "" + ordenes[i].getOrdenNum();
+                    if (numOrden.equals(numIngresado)) {
+                        indiceEncontrado = i;
+                        break;
+                    }
+                }
+            }
+
+            if (indiceEncontrado != -1) {
+                // Orden encontrada, mostrar todos los datos
+                System.out.println("ORDEN #" + ordenes[indiceEncontrado].getOrdenNum()
+                        + "\nCliente ID: " + ordenes[indiceEncontrado].getIdCliente()
+                        + "\nTécnico: " + ordenes[indiceEncontrado].getCodTecnico()
+                        + "\nDispositivo: " + ordenes[indiceEncontrado].getDispositivo()
+                        + "\nMarca: " + ordenes[indiceEncontrado].getMarca()
+                        + "\nModelo: " + ordenes[indiceEncontrado].getModelo()
+                        + "\nProblema: " + ordenes[indiceEncontrado].getProblema()
+                        + "\nEstado: " + ordenes[indiceEncontrado].getEstado()
+                        + "\nFecha ingreso: " + ordenes[indiceEncontrado].getFechaIngreso());
+
+                //volver al menú
+                String opciones[] = {"Volver"};
+                JOptionPane.showOptionDialog(null,
+                        "¿Desea volver al menú?",
+                        "Volver al menu",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        opciones,
+                        opciones[0]);
+                buscarOrden = false;
+
+            } else {
+                // si la orden no fue encontrada 
+                System.out.println("La orden de servicio con el número: " + numIngresado + " no se encuentra registrada en el sistema");
+                String opciones[] = {"Ingresar otro número", "Cancelar"};
+                int seleccion = JOptionPane.showOptionDialog(null,
+                        "Seleccione una opcion",
+                        "Orden no encontrada",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        opciones,
+                        opciones[0]);
+
+                if (seleccion == 1) {
+                    buscarOrden = false; // cancelar
+                }
+            }
+        }
+    }
+
+    public static void mostrarOrdenesDeTecnico(Orden ordenes[], int cantidadOrdenes, String codTecnico, Usuario usuarios[], Cliente clientes[]) {
+        boolean hayOrdenes = false;
+        for (int i = 0; i < cantidadOrdenes; i++) {
+            if (ordenes[i] != null && ordenes[i].getCodTecnico().equals(codTecnico)) {
+                hayOrdenes = true;
+
+                // nombre del técnico
+                String nombreTecnico = "No encontrado";
+                for (int j = 0; j < usuarios.length; j++) {
+                    if (usuarios[j] != null && usuarios[j].getCodigo().equals(codTecnico)) {
+                        nombreTecnico = usuarios[j].getNombreCompleto();
+                        break;
+                    }
+                }
+
+                //nombre del cliente
+                String nombreCliente = "No encontrado";
+                for (int j = 0; j < clientes.length; j++) {
+                    if (clientes[j] != null && clientes[j].getId().equals(ordenes[i].getIdCliente())) {
+                        nombreCliente = clientes[j].getNombreCompleto();
+                        break;
+                    }
+                }
+
+                // Mostrar datos en consola
+                System.out.println();
+                System.out.println("Orden N°: " + ordenes[i].getOrdenNum());
+                System.out.println("Técnico asignado: " + nombreTecnico);
+                System.out.println("Cliente: " + nombreCliente);
+                System.out.println("Marca: " + ordenes[i].getMarca());
+                System.out.println("Modelo: " + ordenes[i].getModelo());
+                System.out.println("Problema: " + ordenes[i].getProblema());
+                System.out.println("Estado: " + ordenes[i].getEstado());
+                System.out.println("Fecha de ingreso: " + ordenes[i].getFechaIngreso());
+
+            }
+        }
+
+        if (!hayOrdenes) {
+            JOptionPane.showMessageDialog(null, "No tiene órdenes asignadas.");
+        }
+    }
+
+    public static void buscarOrdenTecnico(Orden ordenes[], int cantidadOrdenes, String codTecnico, Cliente clientes[], int cantidadClientes) {
+        boolean buscar = true;
+
+        while (buscar) {
+            String numeroIngresado = JOptionPane.showInputDialog("Ingrese el número de la orden:");
+            int indice = -1;
+
+            for (int i = 0; i < cantidadOrdenes; i++) {
+                if (ordenes[i] != null && ("" + ordenes[i].getOrdenNum()).equals(numeroIngresado)) {
+                    indice = i;
+                    break;
+                }
+            }
+
+            if (indice == -1) {
+                String opciones[] = {"Ingresar otro número", "Cancelar"};
+                int seleccion = JOptionPane.showOptionDialog(null,
+                        "La orden con número " + numeroIngresado + " no se encuentra registrada.",
+                        "Orden no encontrada", 
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        opciones,
+                        opciones[0]);
+                if (seleccion == 1) {
+                    buscar = false;
+                }
+            } else {
+                if (!ordenes[indice].getCodTecnico().equals(codTecnico)) {
+                    String opciones[] = {"Ingresar otro número", "Cancelar"};
+                    int seleccion = JOptionPane.showOptionDialog(null,
+                            "No tiene permiso para ingresar a la orden " + numeroIngresado,
+                            "Ingreno no permitido", 
+                            JOptionPane.DEFAULT_OPTION, 
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            opciones,
+                            opciones[0]);
+                    if (seleccion == 1) {
+                        buscar = false;
+                    }
+                } else {
+                    // Mostrar datos de la orden
+                    ordenes[indice].mostrarDatosOrden();
+
+                    // Botones para cerrar o cancelar
+                    String opciones[] = {"Cerrar orden", "Cancelar"};
+                    int seleccion = JOptionPane.showOptionDialog(null, 
+                            "¿Qué desea hacer con la orden?",
+                            "Opciones",
+                            JOptionPane.DEFAULT_OPTION, 
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            opciones,
+                            opciones[0]);
+
+                    if (seleccion == 0) {
+                        String solucion = JOptionPane.showInputDialog("Ingrese la solución aplicada:");
+
+                        //Costo total
+                        double costo = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el costo total:"));
+
+                        // sleccionar estado fianl
+                        String opcionesEstado[] = {"Reparada", "Devolución"};
+                        int seleccionEstado = JOptionPane.showOptionDialog(null, 
+                                "Seleccione el estado final:",
+                                "Estado",
+                                JOptionPane.DEFAULT_OPTION, 
+                                JOptionPane.QUESTION_MESSAGE,
+                                null, 
+                                opcionesEstado, 
+                                opcionesEstado[0]);
+
+                        EstadoOrden estadoFinal = EstadoOrden.Reparada;
+                        if (seleccionEstado == 0) {
+                            estadoFinal = EstadoOrden.Reparada;
+                        } else if (seleccionEstado == 1) {
+                            estadoFinal = EstadoOrden.Devolucion;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Cancelado.");
+                            return;
+                        }
+
+                        //Buscar tipo de cliente
+                        TipoCliente tipoCliente = TipoCliente.ORO; // por defecto
+                        String idCliente = ordenes[indice].getIdCliente();
+
+                        for (int j = 0; j < cantidadClientes; j++) {
+                            if (clientes[j] != null && clientes[j].getId().equals(idCliente)) {
+                                tipoCliente = clientes[j].getTipoCliente(); // "Premium", "Platino", "Oro"
+                                break;
+                            }
+                        }
+
+                        //Descuento
+                        double descuento = 0;
+
+                        if (estadoFinal.equals("Reparada")) {
+                            if (tipoCliente.equals("Premium")) {
+                                descuento = costo * 0.05;
+                            } else if (tipoCliente.equals("Platino")) {
+                                descuento = costo * 0.03;
+                            }
+                        } else if (estadoFinal.equals("Devolución")) {
+                            if (tipoCliente.equals("Premium")) {
+                                descuento = costo * 0.75;
+                            } else if (tipoCliente.equals("Platino")) {
+                                descuento = costo * 0.50;
+                            } else {
+                                descuento = costo * 0.25;
+                            }
+                        }
+
+                        double precio = costo - descuento;
+
+                        // 6. Actualizar la orden
+                        ordenes[indice].setEstado(estadoFinal);
+                        ordenes[indice].setSolucion(solucion);
+                        ordenes[indice].setPrecio(precio);
+
+                        JOptionPane.showMessageDialog(null,
+                                "Orden cerrada exitosamente."
+                                + "\nEstado: " + estadoFinal
+                                + "\nTipo de cliente: " + tipoCliente
+                                + "\nCosto: $" + costo
+                                + "\nDescuento: $" + descuento
+                                + "\nPrecio final: $" + precio);
+                    }
+
+                    buscar = false;
+                }
+            }
+        }
+    }
+
+    public static Cliente agregarCliente(Cliente cliente) {
+
+        return cliente;
+    }
 
     public static void buscarUsuario(Usuario usuarios[]) {
         String opcionesBusqueda[] = {"Por usuario", "Por codigo", "Cancelar"};
@@ -380,19 +815,19 @@ public class Proyecto {
                     }
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "No se seleccionó ninguna opción");  
+                    JOptionPane.showMessageDialog(null, "No se seleccionó ninguna opción");
             }
             usuarioEncontrado = -1;
         }
-        
+
         return usuarioEncontrado;
     }
-    
+
     public static void actualizarUsuario(Usuario usuarios[], int usuarioEncontrado) {
         String opcionesDeCambio[] = {"Nombre completo", "Usuario", "Clave", "Cancelar"};
         int seleccionACambiar = JOptionPane.showOptionDialog(null, "Indique que desea actualizar", "Usuario: " + usuarios[usuarioEncontrado].getCodigo(),
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesDeCambio, opcionesDeCambio[3]);
-        
+
         switch (seleccionACambiar) {
             case 0: // Cambiar nombre completo
                 String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre completo");
@@ -492,7 +927,7 @@ public class Proyecto {
                         }
                     }
                 }
-                if(cumple == true) {
+                if (cumple == true) {
                     usuarios[usuarioEncontrado].setClave(nuevaClave);
                     JOptionPane.showMessageDialog(null, "Se realizó el cambio de la contraseña exitosamente.");
                 }
@@ -502,7 +937,7 @@ public class Proyecto {
         }
 
     }
-    
+
     public static int busqueda(Usuario usuarios[], int seleccionBusqueda, String valorDeBusqueda) {
         int usuarioEncontrado = -1;
 
@@ -523,25 +958,25 @@ public class Proyecto {
                 }
             }
         }
-        
+
         if (usuarioEncontrado == -1 && seleccionBusqueda == 0) {
             JOptionPane.showMessageDialog(null, "El Usuario con el nombre de usuario: " + valorDeBusqueda + " no se encuentra registrado en el sistema");
         }
-        
+
         if (usuarioEncontrado == -1 && seleccionBusqueda == 1) {
             JOptionPane.showMessageDialog(null, "El Usuario con el codigo: " + valorDeBusqueda + " no se encuentra registrado en el sistema");
         }
-        
+
         return usuarioEncontrado;
     }
-    
+
     public static String cifrarClave(String clave) {
         String claveCifrada = "";
-        
-        for(int i = 0; i < clave.length(); i++ ) {
+
+        for (int i = 0; i < clave.length(); i++) {
             claveCifrada += "*";
         }
-                
+
         return claveCifrada;
     }
 
@@ -626,7 +1061,7 @@ public class Proyecto {
             int posicionArroba = 0;
             int posicionPunto = 0;
             boolean formatoCorreoCorrecto;
-            
+
             while (true) {
                 correo = JOptionPane.showInputDialog("Ingrese el correo electronico del cliente");
                 formatoCorreoCorrecto = true;
@@ -649,7 +1084,7 @@ public class Proyecto {
                         String opcionesRepetir[] = {"Ingresar otro correo", "Cancelar"};
                         int seleccionRepetir = JOptionPane.showOptionDialog(null, "El correo tiene un formato incorrecto. Desea ingresar oro?", "Error correo",
                                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesRepetir, opcionesRepetir[1]);
-                        if(seleccionRepetir == 1) {
+                        if (seleccionRepetir == 1) {
                             break;
                         }
                     }
@@ -695,31 +1130,31 @@ public class Proyecto {
             return cantidadClientes;
         }
     }
-    
+
     public static void buscarCliente(Cliente clientes[]) {
         boolean clienteEncontrado = false;
         int indiceClienteEncontrado = -1;
         String idABuscar;
-        while(true) {
+        while (true) {
             idABuscar = JOptionPane.showInputDialog("Ingrese el ID de un cliente para buscar");
-            
-            for(int i = 0; i < clientes.length; i++) {
-                if(clientes[i] != null) {
-                    if(clientes[i].getId().equals(idABuscar)){
+
+            for (int i = 0; i < clientes.length; i++) {
+                if (clientes[i] != null) {
+                    if (clientes[i].getId().equals(idABuscar)) {
                         clienteEncontrado = true;
                         indiceClienteEncontrado = i;
                     }
                 }
             }
-            
+
             if (clienteEncontrado == false) {
                 String opcionesTipo[] = {"Ingresar otro ID", "Cancelar"};
                 int seleccionRepetir = JOptionPane.showOptionDialog(null, "El cliente con el ID:" + idABuscar + " no se encuentra registrado en el sistema", "Cliente no encontrado",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesTipo, opcionesTipo[0]);
-                if(seleccionRepetir == 1){
+                if (seleccionRepetir == 1) {
                     break;
                 }
-            }else {
+            } else {
                 clientes[indiceClienteEncontrado].mostrarTodosLosDatosVentana();
                 //AQUI IRAN LAS INSTRUCCIONES SI SE ENCUENTRA EL CLIENTE
                 break;
