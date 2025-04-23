@@ -22,21 +22,21 @@ public class Proyecto {
 
         int cantidadOrdenes = 15;
         Orden ordenes[] = new Orden[120];
-        ordenes[0] = new Orden("1-6655-0808", "T-101", TipoDispositivo.Celular, "Samsung", "A23", "Pantalla dañada", EstadoOrden.Asignada);
-        ordenes[1] = new Orden("1-7788-0909", "T-102", TipoDispositivo.PC, "HP", "124", "Bateria dañada", EstadoOrden.Asignada);
-        ordenes[2] = new Orden("1-7788-0909", "T-103", TipoDispositivo.Laptop, "Dell", "224", "Puerto de carga dañado", EstadoOrden.Asignada);
-        ordenes[3] = new Orden("1-7788-0909", "T-104", TipoDispositivo.Tablet, "Lenovo", "124", "Pantalla dañada", EstadoOrden.Asignada);
-        ordenes[4] = new Orden("1-7788-0909", "T-105", TipoDispositivo.Celular, "Samsumg", "A26", "Fallas en la camara", EstadoOrden.Devolucion);
-        ordenes[5] = new Orden("1-7788-0909", "T-106", TipoDispositivo.PC, "HP", "125", "Sobrecalentamiento", EstadoOrden.Devolucion);
-        ordenes[6] = new Orden("1-7788-0909", "T-107", TipoDispositivo.Laptop, "Dell", "225", "Fallas en el microfono", EstadoOrden.Devolucion);
-        ordenes[7] = new Orden("1-7788-0909", "T-108", TipoDispositivo.Tablet, "Lenovo", "124", "", EstadoOrden.Devolucion);
-        ordenes[8] = new Orden("1-7788-0909", "T-109", TipoDispositivo.Celular, "Samsumg", "A36", "Sobrecalentamiento", EstadoOrden.EnReparacion);
-        ordenes[9] = new Orden("1-7788-0909", "T-110", TipoDispositivo.PC, "HP", "126", "Puerto de carga dañado", EstadoOrden.EnReparacion);
-        ordenes[10] = new Orden("1-7788-0909", "T-111", TipoDispositivo.Laptop, "Dell", "226", "Pantalla dañada", EstadoOrden.EnReparacion);
-        ordenes[11] = new Orden("1-7788-0909", "T-112", TipoDispositivo.Tablet, "Lenovo", "124", "Fallas en la camara", EstadoOrden.Reparada);
-        ordenes[12] = new Orden("1-7788-0909", "T-113", TipoDispositivo.Celular, "Samsung", "S25", "Microfono dañado", EstadoOrden.Reparada);
-        ordenes[13] = new Orden("1-7788-0909", "T-114", TipoDispositivo.PC, "HP", "125", "Fallos en la camara", EstadoOrden.Reparada);
-        ordenes[14] = new Orden("1-7788-0909", "T-115", TipoDispositivo.Laptop, "Dell", "227", "Bateria dañada", EstadoOrden.Reparada);
+        ordenes[0] = new Orden("A1", "T-101", TipoDispositivo.Celular, "Samsung", "A23", "Pantalla dañada", EstadoOrden.Asignada);
+        ordenes[1] = new Orden("A1", "T-102", TipoDispositivo.PC, "HP", "124", "Bateria dañada", EstadoOrden.Asignada);
+        ordenes[2] = new Orden("A1", "T-103", TipoDispositivo.Laptop, "Dell", "224", "Puerto de carga dañado", EstadoOrden.Asignada);
+        ordenes[3] = new Orden("A1", "T-101", TipoDispositivo.Tablet, "Lenovo", "124", "Pantalla dañada", EstadoOrden.Asignada);
+        ordenes[4] = new Orden("A2", "T-102", TipoDispositivo.Celular, "Samsumg", "A26", "Fallas en la camara", EstadoOrden.Devolucion);
+        ordenes[5] = new Orden("A2", "T-103", TipoDispositivo.PC, "HP", "125", "Sobrecalentamiento", EstadoOrden.Devolucion);
+        ordenes[6] = new Orden("A3", "T-101", TipoDispositivo.Laptop, "Dell", "225", "Fallas en el microfono", EstadoOrden.Devolucion);
+        ordenes[7] = new Orden("A3", "T-102", TipoDispositivo.Tablet, "Lenovo", "124", "", EstadoOrden.Devolucion);
+        ordenes[8] = new Orden("A3", "T-103", TipoDispositivo.Celular, "Samsumg", "A36", "Sobrecalentamiento", EstadoOrden.EnReparacion);
+        ordenes[9] = new Orden("A4", "T-101", TipoDispositivo.PC, "HP", "126", "Puerto de carga dañado", EstadoOrden.EnReparacion);
+        ordenes[10] = new Orden("A4", "T-102", TipoDispositivo.Laptop, "Dell", "226", "Pantalla dañada", EstadoOrden.EnReparacion);
+        ordenes[11] = new Orden("A4", "T-103", TipoDispositivo.Tablet, "Lenovo", "124", "Fallas en la camara", EstadoOrden.Reparada);
+        ordenes[12] = new Orden("A5", "T-101", TipoDispositivo.Celular, "Samsung", "S25", "Microfono dañado", EstadoOrden.Reparada);
+        ordenes[13] = new Orden("A5", "T-102", TipoDispositivo.PC, "HP", "125", "Fallos en la camara", EstadoOrden.Reparada);
+        ordenes[14] = new Orden("A5", "T-103", TipoDispositivo.Laptop, "Dell", "227", "Bateria dañada", EstadoOrden.Reparada);
 
         int cantidadClientes = 8;
         Cliente clientes[] = new Cliente[30];
@@ -137,8 +137,8 @@ public class Proyecto {
                                                 cantidadOrdenes++;
                                             }
                                             break;
-                                        case "7":
-                                            buscarCliente(clientes);
+                                        case "7": // Buscar clientes
+                                            buscarCliente(clientes, ordenes);
                                             break;
                                         case "8": // Bucar usuario
                                             buscarUsuario(usuarios);
@@ -1131,7 +1131,7 @@ public class Proyecto {
         }
     }
 
-    public static void buscarCliente(Cliente clientes[]) {
+    public static void buscarCliente(Cliente clientes[], Orden ordenes[]) {
         boolean clienteEncontrado = false;
         int indiceClienteEncontrado = -1;
         String idABuscar;
@@ -1156,7 +1156,44 @@ public class Proyecto {
                 }
             } else {
                 clientes[indiceClienteEncontrado].mostrarTodosLosDatosVentana();
-                //AQUI IRAN LAS INSTRUCCIONES SI SE ENCUENTRA EL CLIENTE
+                int contadorIds = 0;
+                String numeroOrdenes[] = new String[5];
+                
+                
+                for(int i = 0; i < ordenes.length; i++) {
+                    if(ordenes[i] != null) {
+                        if(ordenes[i].getIdCliente().equals(idABuscar)){
+                            numeroOrdenes[contadorIds] = String.valueOf(ordenes[i].getOrdenNum());
+                            contadorIds += 1;
+                        }
+                    }
+                }
+                
+                
+                
+                String opcionesCliente[] = new String[contadorIds + 1];
+                
+                for(int i = 0; i < contadorIds; i++) {
+                    opcionesCliente[i] = numeroOrdenes[i];
+                }
+                
+                opcionesCliente[contadorIds] = "Cancelar";
+                
+                int ordenAMostrar = JOptionPane.showOptionDialog(null, "El cliente con el ID:" + idABuscar + " no se encuentra registrado en el sistema", "Cliente no encontrado",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesCliente, opcionesCliente[opcionesCliente.length - 1]);
+                
+                String ordenSeleccionada = opcionesCliente[ordenAMostrar];
+                
+                for (int i = 0; i < ordenes.length; i++) {
+                    if (ordenes[i] != null) {
+                        if (ordenSeleccionada != "Cancelar") {
+                            if (ordenes[i].getOrdenNum() == Integer.parseInt(ordenSeleccionada)) {
+                                ordenes[i].mostrarDatosOrden();
+                            }
+                        }
+                    }
+                }
+                
                 break;
             }
         }
