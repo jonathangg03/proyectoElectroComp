@@ -171,6 +171,7 @@ public class Proyecto {
                                             usuarioEncontrado = null;
                                             break;
                                         case "4": //Salir del sistema
+                                            System.out.println("Gracias por usar este sistema.");
                                             return;
                                         default:
                                             JOptionPane.showMessageDialog(null, "Seleccione una opcion valida");
@@ -634,7 +635,7 @@ public class Proyecto {
                 String opciones[] = {"Ingresar otro número", "Cancelar"};
                 int seleccion = JOptionPane.showOptionDialog(null,
                         "La orden con número " + numeroIngresado + " no se encuentra registrada.",
-                        "Orden no encontrada", 
+                        "Orden no encontrada",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
                         null,
@@ -663,10 +664,10 @@ public class Proyecto {
 
                     // Botones para cerrar o cancelar
                     String opciones[] = {"Cerrar orden", "Cancelar"};
-                    int seleccion = JOptionPane.showOptionDialog(null, 
+                    int seleccion = JOptionPane.showOptionDialog(null,
                             "¿Qué desea hacer con la orden?",
                             "Opciones",
-                            JOptionPane.DEFAULT_OPTION, 
+                            JOptionPane.DEFAULT_OPTION,
                             JOptionPane.QUESTION_MESSAGE,
                             null,
                             opciones,
@@ -680,13 +681,13 @@ public class Proyecto {
 
                         // sleccionar estado fianl
                         String opcionesEstado[] = {"Reparada", "Devolución"};
-                        int seleccionEstado = JOptionPane.showOptionDialog(null, 
+                        int seleccionEstado = JOptionPane.showOptionDialog(null,
                                 "Seleccione el estado final:",
                                 "Estado",
-                                JOptionPane.DEFAULT_OPTION, 
+                                JOptionPane.DEFAULT_OPTION,
                                 JOptionPane.QUESTION_MESSAGE,
-                                null, 
-                                opcionesEstado, 
+                                null,
+                                opcionesEstado,
                                 opcionesEstado[0]);
 
                         EstadoOrden estadoFinal = EstadoOrden.Reparada;
@@ -1160,32 +1161,29 @@ public class Proyecto {
                 clientes[indiceClienteEncontrado].mostrarTodosLosDatosVentana();
                 int contadorIds = 0;
                 String numeroOrdenes[] = new String[5];
-                
-                
-                for(int i = 0; i < ordenes.length; i++) {
-                    if(ordenes[i] != null) {
-                        if(ordenes[i].getIdCliente().equals(idABuscar)){
+
+                for (int i = 0; i < ordenes.length; i++) {
+                    if (ordenes[i] != null) {
+                        if (ordenes[i].getIdCliente().equals(idABuscar)) {
                             numeroOrdenes[contadorIds] = String.valueOf(ordenes[i].getOrdenNum());
                             contadorIds += 1;
                         }
                     }
                 }
-                
-                
-                
+
                 String opcionesCliente[] = new String[contadorIds + 1];
-                
-                for(int i = 0; i < contadorIds; i++) {
+
+                for (int i = 0; i < contadorIds; i++) {
                     opcionesCliente[i] = numeroOrdenes[i];
                 }
-                
+
                 opcionesCliente[contadorIds] = "Cancelar";
-                
+
                 int ordenAMostrar = JOptionPane.showOptionDialog(null, "El cliente con el ID:" + idABuscar + " no se encuentra registrado en el sistema", "Cliente no encontrado",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesCliente, opcionesCliente[opcionesCliente.length - 1]);
-                
+
                 String ordenSeleccionada = opcionesCliente[ordenAMostrar];
-                
+
                 for (int i = 0; i < ordenes.length; i++) {
                     if (ordenes[i] != null) {
                         if (ordenSeleccionada != "Cancelar") {
@@ -1195,21 +1193,21 @@ public class Proyecto {
                         }
                     }
                 }
-                
+
                 break;
             }
         }
     }
-    
+
     public static void generarReportes(Cliente clientes[], Orden ordenes[], Usuario usuarios[]) {
         String filtroID = "Todos";
         String filtroTipoCliente = "Todos";
         String filtroTipoDispositivo = "Todos";
         String filtroEstadoOrden = "Todos";
         String filtroCodigoTecnico = "Todos";
-        
+
         String opcionesReporte[] = {"Filtros del Cliente", "Filtros de la Orden", "Filtros del Técnico", "Generar reporte"};
-        while(true) {
+        while (true) {
             String mensajeInicial = "Filtro del cliente: \n-ID: " + filtroID + "\n-Tipo de cliente: " + filtroTipoCliente + "\n"
                     + "Filtro de la Orden: \n-Tipo: " + filtroTipoDispositivo + "\n-Estado: " + filtroEstadoOrden + "\nFiltros del Técnico: \n-Codigo: " + filtroCodigoTecnico;
             int menuCambiarFiltro = JOptionPane.showOptionDialog(null, mensajeInicial, "Reporte",
@@ -1217,30 +1215,30 @@ public class Proyecto {
             if (menuCambiarFiltro == -1) {
                 break;
             }
-            
-            if(menuCambiarFiltro == 0) {
+
+            if (menuCambiarFiltro == 0) {
                 boolean idExiste = false;
-                String nuevoID = JOptionPane.showInputDialog("Ingrese el ID del cliente: " );
-                
-                for(int i = 0; i < clientes.length; i++) {
-                    if(clientes[i] != null) {
-                        if(clientes[i].getId().equals(nuevoID)) {
+                String nuevoID = JOptionPane.showInputDialog("Ingrese el ID del cliente: ");
+
+                for (int i = 0; i < clientes.length; i++) {
+                    if (clientes[i] != null) {
+                        if (clientes[i].getId().equals(nuevoID)) {
                             idExiste = true;
                         }
                     }
                 }
-                
-                if(idExiste == true) {
+
+                if (idExiste == true) {
                     filtroID = nuevoID;
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró el cliente.");
                 }
-                
+
                 String opcionesTipoCliente[] = {"Premium", "Platino", "Oro", "Todos"};
                 int menuCambiarFiltroTipoCliente = JOptionPane.showOptionDialog(null, "Filtro del Tipo de cliente", "Reporte",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesTipoCliente, opcionesTipoCliente[3]);
-                
-                switch(menuCambiarFiltroTipoCliente) {
+
+                switch (menuCambiarFiltroTipoCliente) {
                     case 0:
                         filtroTipoCliente = opcionesTipoCliente[0];
                         break;
@@ -1254,7 +1252,7 @@ public class Proyecto {
                         filtroTipoCliente = opcionesTipoCliente[3];
                 }
             }
-            
+
             if (menuCambiarFiltro == 1) {
                 String opcionesTipoDispositivo[] = {"Laptop", "PC", "Celular", "Tablet", "Todos"};
                 int menuCambiarTipoDispositivo = JOptionPane.showOptionDialog(null, "Filtro del Tipo de dispositivo", "Reporte",
@@ -1272,11 +1270,11 @@ public class Proyecto {
                         break;
                     case 3:
                         filtroTipoDispositivo = opcionesTipoDispositivo[2];
-                        break;                        
+                        break;
                     default:
                         filtroTipoCliente = opcionesTipoDispositivo[4];
                 }
-                
+
                 String opcionesEstadoOrden[] = {"Reparada", "Devolución", "Todos"};
                 int menuCambiarEstadoOrden = JOptionPane.showOptionDialog(null, "Filtro de Estado", "Reporte",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesEstadoOrden, opcionesTipoDispositivo[2]);
@@ -1287,34 +1285,98 @@ public class Proyecto {
                         break;
                     case 1:
                         filtroEstadoOrden = opcionesEstadoOrden[1];
-                        break;                        
+                        break;
                     default:
                         filtroEstadoOrden = opcionesEstadoOrden[2];
-                }                
+                }
             }
-            
-            if(menuCambiarFiltro == 2) {
+
+            if (menuCambiarFiltro == 2) {
                 boolean codigoExiste = false;
-                String nuevoCodigo = JOptionPane.showInputDialog("Filtro del Código del técnico: " );
-                
-                for(int i = 0; i < usuarios.length; i++) {
-                    if(usuarios[i] != null) {
-                        if(usuarios[i].getCodigo().equals(nuevoCodigo)) {
+                String nuevoCodigo = JOptionPane.showInputDialog("Filtro del Código del técnico: ");
+
+                for (int i = 0; i < usuarios.length; i++) {
+                    if (usuarios[i] != null) {
+                        if (usuarios[i].getCodigo().equals(nuevoCodigo)) {
                             codigoExiste = true;
                         }
                     }
                 }
-                
-                if(codigoExiste == true) {
+
+                if (codigoExiste == true) {
                     filtroCodigoTecnico = nuevoCodigo;
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró el tecnico.");
                 }
             }
-            
-            if(menuCambiarFiltro == 3) {
-                // AQUI IRA LA CREACIÓN DEL FILTRADO DEL REPORTE
+
+            if (menuCambiarFiltro == 3) {
+                // filtrado dd reportses 
+                double total = 0;
+
+                System.out.println("ORDENES FILTRADAS:");
+                for (int i = 0; i < ordenes.length; i++) {
+                    if (ordenes[i] != null) {
+                        String idCliente = ordenes[i].getIdCliente();
+                        String tipoCliente = "";
+                        String tipoDispositivo = "" + ordenes[i].getDispositivo();
+                        String estado = "" + ordenes[i].getEstado();
+                        String codTecnico = ordenes[i].getCodTecnico();
+
+                        // verificar si el estado es válido para reportes
+                        if (estado.equals("Asignada") || estado.equals("En reparacion")) {
+                   
+                        } else {
+                           
+                            for (int j = 0; j < clientes.length; j++) {
+                                if (clientes[j] != null && clientes[j].getId().equals(idCliente)) {
+                                    tipoCliente = "" + clientes[j].getTipoCliente();
+                                    break;
+                                }
+                            }
+
+                            // Pasar por todos los filtros
+                            boolean coincide = true;
+
+                            if (!filtroID.equals("Todos") && !idCliente.equals(filtroID)) {
+                                coincide = false;
+                            }
+
+                            if (!filtroTipoCliente.equals("Todos") && !tipoCliente.equals(filtroTipoCliente)) {
+                                coincide = false;
+                            }
+
+                            if (!filtroTipoDispositivo.equals("Todos") && !tipoDispositivo.equals(filtroTipoDispositivo)) {
+                                coincide = false;
+                            }
+
+                            if (!filtroEstadoOrden.equals("Todos") && !estado.equals(filtroEstadoOrden)) {
+                                coincide = false;
+                            }
+
+                            if (!filtroCodigoTecnico.equals("Todos") && !codTecnico.equals(filtroCodigoTecnico)) {
+                                coincide = false;
+                            }
+
+                            // Mostrar si hay coincidencia
+                            if (coincide) {
+                                System.out.println("ID cliente: " + idCliente
+                                        + "Tipo de cliente: " + tipoCliente
+                                        + "Tipo de dispositivo: " + tipoDispositivo
+                                        + "Estado: " + estado
+                                        + "Código del técnico: " + codTecnico
+                                        + "Precio: $" + ordenes[i].getPrecio());
+
+                                total = total + ordenes[i].getPrecio();
+                            }
+                        }
+                    }
+                }
+
+                // mostrar el total
+                System.out.println("Total: ₡" + total);
             }
         }
     }
 }
+
