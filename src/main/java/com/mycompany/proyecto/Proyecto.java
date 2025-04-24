@@ -22,32 +22,32 @@ public class Proyecto {
 
         int cantidadOrdenes = 15;
         Orden ordenes[] = new Orden[120];
-        ordenes[0] = new Orden("A1", "T-101", TipoDispositivo.Celular, "Samsung", "A23", "Pantalla dañada", EstadoOrden.Asignada);
-        ordenes[1] = new Orden("A1", "T-102", TipoDispositivo.PC, "HP", "124", "Bateria dañada", EstadoOrden.Asignada);
-        ordenes[2] = new Orden("A1", "T-103", TipoDispositivo.Laptop, "Dell", "224", "Puerto de carga dañado", EstadoOrden.Asignada);
-        ordenes[3] = new Orden("A1", "T-101", TipoDispositivo.Tablet, "Lenovo", "124", "Pantalla dañada", EstadoOrden.Asignada);
-        ordenes[4] = new Orden("A2", "T-102", TipoDispositivo.Celular, "Samsumg", "A26", "Fallas en la camara", EstadoOrden.Devolucion);
-        ordenes[5] = new Orden("A2", "T-103", TipoDispositivo.PC, "HP", "125", "Sobrecalentamiento", EstadoOrden.Devolucion);
-        ordenes[6] = new Orden("A3", "T-101", TipoDispositivo.Laptop, "Dell", "225", "Fallas en el microfono", EstadoOrden.Devolucion);
-        ordenes[7] = new Orden("A3", "T-102", TipoDispositivo.Tablet, "Lenovo", "124", "", EstadoOrden.Devolucion);
-        ordenes[8] = new Orden("A3", "T-103", TipoDispositivo.Celular, "Samsumg", "A36", "Sobrecalentamiento", EstadoOrden.EnReparacion);
-        ordenes[9] = new Orden("A4", "T-101", TipoDispositivo.PC, "HP", "126", "Puerto de carga dañado", EstadoOrden.EnReparacion);
-        ordenes[10] = new Orden("A4", "T-102", TipoDispositivo.Laptop, "Dell", "226", "Pantalla dañada", EstadoOrden.EnReparacion);
-        ordenes[11] = new Orden("A4", "T-103", TipoDispositivo.Tablet, "Lenovo", "124", "Fallas en la camara", EstadoOrden.Reparada);
-        ordenes[12] = new Orden("A5", "T-101", TipoDispositivo.Celular, "Samsung", "S25", "Microfono dañado", EstadoOrden.Reparada);
-        ordenes[13] = new Orden("A5", "T-102", TipoDispositivo.PC, "HP", "125", "Fallos en la camara", EstadoOrden.Reparada);
-        ordenes[14] = new Orden("A5", "T-103", TipoDispositivo.Laptop, "Dell", "227", "Bateria dañada", EstadoOrden.Reparada);
+        ordenes[0] = new Orden("1653-2463", "T-101", TipoDispositivo.Celular, "Samsung", "A23", "Pantalla dañada", EstadoOrden.Asignada);
+        ordenes[1] = new Orden("1653-2463", "T-102", TipoDispositivo.PC, "HP", "124", "Bateria dañada", EstadoOrden.Asignada);
+        ordenes[2] = new Orden("1653-2463", "T-103", TipoDispositivo.Laptop, "Dell", "224", "Puerto de carga dañado", EstadoOrden.Asignada);
+        ordenes[3] = new Orden("1653-2463", "T-101", TipoDispositivo.Tablet, "Lenovo", "124", "Pantalla dañada", EstadoOrden.Asignada);
+        ordenes[4] = new Orden("6787-3345", "T-102", TipoDispositivo.Celular, "Samsumg", "A26", "Fallas en la camara", EstadoOrden.Devolucion);
+        ordenes[5] = new Orden("6787-3345", "T-103", TipoDispositivo.PC, "HP", "125", "Sobrecalentamiento", EstadoOrden.Devolucion);
+        ordenes[6] = new Orden("2245-2367", "T-101", TipoDispositivo.Laptop, "Dell", "225", "Fallas en el microfono", EstadoOrden.Devolucion);
+        ordenes[7] = new Orden("2245-2367", "T-102", TipoDispositivo.Tablet, "Lenovo", "124", "", EstadoOrden.Devolucion);
+        ordenes[8] = new Orden("2245-2367", "T-103", TipoDispositivo.Celular, "Samsumg", "A36", "Sobrecalentamiento", EstadoOrden.EnReparacion);
+        ordenes[9] = new Orden("1974-2467", "T-101", TipoDispositivo.PC, "HP", "126", "Puerto de carga dañado", EstadoOrden.EnReparacion);
+        ordenes[10] = new Orden("1974-2467", "T-102", TipoDispositivo.Laptop, "Dell", "226", "Pantalla dañada", EstadoOrden.EnReparacion);
+        ordenes[11] = new Orden("1974-2467", "T-103", TipoDispositivo.Tablet, "Lenovo", "124", "Fallas en la camara", EstadoOrden.Reparada);
+        ordenes[12] = new Orden("9725-1736", "T-101", TipoDispositivo.Celular, "Samsung", "S25", "Microfono dañado", EstadoOrden.Reparada);
+        ordenes[13] = new Orden("9725-1736", "T-102", TipoDispositivo.PC, "HP", "125", "Fallos en la camara", EstadoOrden.Reparada);
+        ordenes[14] = new Orden("9725-1736", "T-103", TipoDispositivo.Laptop, "Dell", "227", "Bateria dañada", EstadoOrden.Reparada);
 
         int cantidadClientes = 8;
         Cliente clientes[] = new Cliente[30];
-        clientes[0] = new Cliente("A1", "Jorge Soto", "1111-1111", "jsoto@mail.com", TipoCliente.PREMIUM);
-        clientes[1] = new Cliente("A2", "Valeria Mendoza", "2222-2222", "vmendoza@mail.com", TipoCliente.PLATINO);
-        clientes[2] = new Cliente("A3", "Andrés Cortés", "3333-2222", "acortes@mail.com", TipoCliente.ORO);
-        clientes[3] = new Cliente("A4", "Camila Ríos", "4444-2222", "crios@mail.com", TipoCliente.PREMIUM);
-        clientes[4] = new Cliente("A5", "Tomás Herrera", "5555-2222", "therrera@mail.com", TipoCliente.PLATINO);
-        clientes[5] = new Cliente("A6", "Natalia Zamora", "6666-2222", "nzamora@mail.com", TipoCliente.ORO);
-        clientes[6] = new Cliente("A7", "Joaquín Salinas", "7777-2222", "jsalinas@mail.com", TipoCliente.PREMIUM);
-        clientes[7] = new Cliente("A8", "Mariana Paredes", "8888-2222", "mparedes@mail.com", TipoCliente.PLATINO);
+        clientes[0] = new Cliente("1653-2463", "Jorge Soto", "1111-1111", "jsoto@mail.com", TipoCliente.PREMIUM);
+        clientes[1] = new Cliente("6787-3345", "Valeria Mendoza", "2222-2222", "vmendoza@mail.com", TipoCliente.PLATINO);
+        clientes[2] = new Cliente("2245-2367", "Andrés Cortés", "3333-2222", "acortes@mail.com", TipoCliente.ORO);
+        clientes[3] = new Cliente("1974-2467", "Camila Ríos", "4444-2222", "crios@mail.com", TipoCliente.PREMIUM);
+        clientes[4] = new Cliente("9725-1736", "Tomás Herrera", "5555-2222", "therrera@mail.com", TipoCliente.PLATINO);
+        clientes[5] = new Cliente("1587-0385", "Natalia Zamora", "6666-2222", "nzamora@mail.com", TipoCliente.ORO);
+        clientes[6] = new Cliente("1735-8597", "Joaquín Salinas", "7777-2222", "jsalinas@mail.com", TipoCliente.PREMIUM);
+        clientes[7] = new Cliente("9898-3564", "Mariana Paredes", "8888-2222", "mparedes@mail.com", TipoCliente.PLATINO);
 
         while (true) {
             String nombreDeUsuarioAValidar = JOptionPane.showInputDialog("Ingrese el nombre de usuario");
@@ -901,7 +901,7 @@ public class Proyecto {
                         JOptionPane.showMessageDialog(null, "La clave no coincide con los parametros");
                         cumple = false;
                         String opcionesClave[] = {"Volver a ingresar", "Cancelar"};
-                        int seleccionVolverClave = JOptionPane.showOptionDialog(null, "Indique que desea hacer", "Error contraseña",
+                        int seleccionVolverClave = JOptionPane.showOptionDialog(null, "Contraseña invalida", "Error contraseña",
                                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesClave, opcionesClave[1]);
                         if (seleccionVolverClave == 0) {
                             tieneNumero = false;
@@ -1165,7 +1165,8 @@ public class Proyecto {
                 for (int i = 0; i < ordenes.length; i++) {
                     if (ordenes[i] != null) {
                         if (ordenes[i].getIdCliente().equals(idABuscar)) {
-                            numeroOrdenes[contadorIds] = String.valueOf(ordenes[i].getOrdenNum());
+                            String nuevoString = "" + ordenes[i].getOrdenNum();
+                            numeroOrdenes[contadorIds] = nuevoString;
                             contadorIds += 1;
                         }
                     }
@@ -1179,7 +1180,7 @@ public class Proyecto {
 
                 opcionesCliente[contadorIds] = "Cancelar";
 
-                int ordenAMostrar = JOptionPane.showOptionDialog(null, "El cliente con el ID:" + idABuscar + " no se encuentra registrado en el sistema", "Cliente no encontrado",
+                int ordenAMostrar = JOptionPane.showOptionDialog(null, "Ordenes del cliente " + idABuscar, "Opciones Cliente",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesCliente, opcionesCliente[opcionesCliente.length - 1]);
 
                 String ordenSeleccionada = opcionesCliente[ordenAMostrar];
