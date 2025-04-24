@@ -648,8 +648,8 @@ public class Proyecto {
                     String opciones[] = {"Ingresar otro número", "Cancelar"};
                     int seleccion = JOptionPane.showOptionDialog(null,
                             "No tiene permiso para ingresar a la orden " + numeroIngresado,
-                            "Ingreno no permitido", 
-                            JOptionPane.DEFAULT_OPTION, 
+                            "Ingreso no permitido",
+                            JOptionPane.DEFAULT_OPTION,
                             JOptionPane.QUESTION_MESSAGE,
                             null,
                             opciones,
