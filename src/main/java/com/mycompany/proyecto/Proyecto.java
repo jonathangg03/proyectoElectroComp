@@ -1365,7 +1365,7 @@ public class Proyecto {
                                         + "Tipo de dispositivo: " + tipoDispositivo
                                         + "Estado: " + estado
                                         + "Código del técnico: " + codTecnico
-                                        + "Precio: $" + ordenes[i].getPrecio());
+                                        + "Precio: ₡" + ordenes[i].getPrecio());
 
                                 total = total + ordenes[i].getPrecio();
                             }
